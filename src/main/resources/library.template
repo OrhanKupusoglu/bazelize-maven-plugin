@@ -1,0 +1,8 @@
+java_library(
+    name = "#LIB_NAME#",
+    visibility = ["//visibility:public"],
+    srcs = #SRCS_GLOB#,
+    deps = [
+#JAVA_DEPS#
+    ],
+)

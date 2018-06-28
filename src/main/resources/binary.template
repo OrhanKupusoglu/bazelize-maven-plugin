@@ -1,0 +1,7 @@
+java_binary(
+    name = "#BIN_NAME#",
+    runtime_deps = [
+#RUNTIME_DEPS#
+    ],
+    main_class = "#MAIN_CLASS#",
+)

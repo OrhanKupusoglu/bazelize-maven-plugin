@@ -1,0 +1,9 @@
+java_test(
+    name = "#TEST_NAME#",
+    srcs = ["#SRCS_GLOB#"],
+    test_class = "#TEST_CLASS#",
+    size = "small",
+    deps = [
+#JAVA_DEPS#
+    ],
+)

@@ -1,0 +1,5 @@
+maven_server(
+    name = "#SERVER_NAME#",
+    url = "#SERVER_URL#",
+    settings_file = "#SETTINGS_FILE#",
+)
