@@ -426,7 +426,7 @@ $ cat bzl-build-dependency.json
     "srcWhiteList": ["src/main/java/org/project/white/net"],
     "srcBlackList": ["src/main/java/org/project/black/net"],
     "depBlackList": ["^jdk_tools", "^com_sun_tools"],
-    "addDep": [":exp_rule"]
+    "addDep": [":exp_rule"],
     "removeDep": ["@io_netty_netty_3_10_5_Final//jar",
                   "@io_netty_netty_all_4_0_31_Final//jar"]
 }
