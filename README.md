@@ -16,7 +16,7 @@ The main culprit for the migration from Maven to Bazel is the slowness of the Ma
 
 Although equipped with an impressive feature set, **Google Bazel** faces the usual *unfamiliarity issues*. For Java developers, after so many years of Maven experience, Bazel looks like a time-consuming challenge from **Maven's declarative (what to do)** to **Bazel's imperative (how to do)** mindset.
 
-
+&nbsp;
 
 ## Alternatives
 
@@ -24,7 +24,7 @@ Bazel itself provides a [systematic approach](https://docs.bazel.build/versions/
 
 The [migrator-maven-plugin](https://github.com/zmeggyesi/migrator-maven-plugin) by *Zalán Meggyesi* may be a good starting point.
 
-
+&nbsp;
 
 ## Apache Maven
 
@@ -147,6 +147,7 @@ $ mvn site:jar
 $ mvn javadoc:jar
 $ mvn javadoc:test-jar
 ```
+&nbsp;
 
 ## Google Bazel
 
@@ -184,7 +185,7 @@ Unfortunately OSGi bundle JARs are required for the [Apache Karaf](https://karaf
 Missing features can be added by writing [extensions](https://docs.bazel.build/versions/master/skylark/concepts.html).
 > Bazel extensions are files ending in .bzl. Use the load statement to import a symbol from an extension.
 
-
+&nbsp;
 
 ## Goals of the Bazelize Maven Plugin
 
@@ -228,7 +229,7 @@ $ mvn bazelize:module
 $ mvn bazelize:build
 ```
 
-
+&nbsp;
 
 ## Sample Migration
 
@@ -387,7 +388,7 @@ $ bazel build --profile=myprofile.out ...
 $ bazel analyze-profile --html myprofile.out
 ```
 
-
+&nbsp;
 
 ## Next Steps
 
