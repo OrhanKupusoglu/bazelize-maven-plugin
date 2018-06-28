@@ -181,7 +181,7 @@ An important caveat is Bazel's lack of support for [OSGi bundles](https://www.os
 
 Unfortunately OSGi bundle JARs are required for the [Apache Karaf](https://karaf.apache.org/) runtime environment, and can be easily generated on Maven with [Apache Felix](http://felix.apache.org/).
 
-Missing features can be improved by writeing [extensions](https://docs.bazel.build/versions/master/skylark/concepts.html).
+Missing features can be improved by writing [extensions](https://docs.bazel.build/versions/master/skylark/concepts.html).
 > Bazel extensions are files ending in .bzl. Use the load statement to import a symbol from an extension.
 
 
