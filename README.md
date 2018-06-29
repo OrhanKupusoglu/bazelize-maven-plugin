@@ -10,9 +10,9 @@ Bazel uses [Skylark](https://docs.bazel.build/versions/master/skylark/language.h
 
 > Skylark is designed to be small, simple, and thread-safe. Although it is inspired from Python, it is not a general-purpose language and most Python features are not included.
 
-Migration from Maven to Bazel means basically generation of Skylark **WORKSPACE** and **BUILD** scripts from a set of **pom.xml** files.
+Migration from Maven to Bazel means basically generation of Skylark **WORKSPACE** and **BUILD** scripts from a set of **pom.xml** configuration files.
 
-The main culprit for the migration from Maven to Bazel is the slowness of the Maven builds. With the current emphasis on DevOps and CI, this slowness can be considered as highly *unsatisfactory*.
+The main culprit for the migration from Maven to Bazel is the slowness of the Maven builds. With the current emphasis on DevOps and CI, this slowness can be considered as *highly unsatisfactory*.
 
 Although equipped with an impressive feature set, **Google Bazel** faces the usual *unfamiliarity issues*. For Java developers, after so many years of Maven experience, Bazel looks like a time-consuming challenge from **Maven's declarative (what to do)** to **Bazel's imperative (how to do)** mindset.
 
