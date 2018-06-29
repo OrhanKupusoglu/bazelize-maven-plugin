@@ -98,7 +98,6 @@ Tests are called automatically, but this step can be skipped with `maven.test.sk
 
 ```
 $ mvn clean install -Dmaven.test.skip
-$ mvn clean install -Dmaven.test.skip=true
 
 # skip unit tests with Failsafe
 $ mvn clean install -DskipTests
