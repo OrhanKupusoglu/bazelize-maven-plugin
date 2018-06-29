@@ -40,7 +40,7 @@ Default locale: en_US, platform encoding: UTF-8
 OS name: "linux", version: "4.10.0-38-generic", arch: "amd64", family: "unix"
 ```
 
-Due to its popularity, Maven has good [documentation](https://maven.apache.org/plugin-developers/index.html) and [Internet presence](https://books.sonatype.com/mvnref-book/reference/index.html).
+Due to its popularity, Maven has good [documentation](https://maven.apache.org/plugin-developers/index.html) and [Internet presence](https://books.sonatype.com/mvnref-book/reference/index.html). To see the command line help:
 
 ```
 $ mvn --help
@@ -171,6 +171,7 @@ As expected, Bazel has extensive [documentation](https://docs.bazel.build/versio
 
 > All target patterns starting with '//' are resolved relative to the current workspace.
 
+To see the command line help:
 ```
 $ bazel help
 ```
