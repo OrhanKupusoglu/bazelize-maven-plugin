@@ -28,7 +28,7 @@ public class CommonTest {
 
 
     private void rmDir() {
-        try(
+        try (
             Stream<Path> stream = Files.walk(PATH_DIR_TEST);
         ) {
             stream.sorted(Comparator.reverseOrder())
