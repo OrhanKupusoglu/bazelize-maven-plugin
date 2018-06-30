@@ -195,9 +195,9 @@ The **Bazelize Maven Plugin** aims to generate all of the required **WORKSPACE**
 | :------------ | ----- | ---------------------------------------- |
 | **module**    | 1     | Traverses a project's source files, typically **src/main/java** directories, and saves one **tmp-bzl-module.json** file for each corresponding **pom.xml**. |
 | **meta**      | 2     | Parses **tmp-bzl-module.json** files, each containing a module's meta data, and consolidates this data into a single **tmp-bzl-meta.json** file. |
-| **build**     | 3     | Generates a **BUILD** file corresonding to a **pom.xml** consisting of *Bazel java_library* rules. Serializes dependency and server data to **tmp-bzl-dependency.json** and **tmp-bzl-server.json** files respectively. |
+| **build**     | 3     | Generates a **BUILD** file corresonding to a **pom.xml** consisting of *Bazel java_library* rules. Serializes dependency and server data to **tmp-bzl-dependency.json** and **tmp-bzl-server.json** files respectively. Finds resources  and adds to the rule. |
 | **workspace** | 4     | Generates a **WORKSPACE** file to download all dependencies referred in **BUILD** files with *Bazel maven_server* and *maven_jar* rules. |
-| **test**      | -     | Appends to **BUILD** files a *Bazel test rule* for each Java Test class. |
+| **test**      | -     | Appends to **BUILD** files a *Bazel test rule* for each Java Test class. Finds resources  and adds to the rule. |
 | **binary**    | -     | Appends to the root BUILD file a *Bazel binary rule*, which refers to all other Java libraries. Requires the main class for the **MANIFEST.MF** file, of course: **-DmainClass=com.mycompany.app.App** |
 | **clean**     | -     | Cleans all temporary files. With **-Dexpunge** cleans **WORKSPACE** and **BUILD** files, too. |
 | **help**      | -     | Displays help.                           |
