@@ -479,7 +479,7 @@ public class Common {
         return template;
     }
 
-    private static String readFromInputStream(InputStream inputStream) throws IOException {
+    public static String readFromInputStream(InputStream inputStream) throws IOException {
         StringBuilder resultStringBuilder = new StringBuilder();
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
