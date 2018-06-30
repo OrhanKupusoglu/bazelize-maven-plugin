@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 
 
 public class CommonTest {
@@ -27,11 +28,12 @@ public class CommonTest {
 
 
     private void rmDir() {
-        try {
-            Files.walk(PATH_DIR_TEST)
-                 .sorted(Comparator.reverseOrder())
-                 .map(Path::toFile)
-                 .forEach(File::delete);
+        try(
+            Stream<Path> stream = Files.walk(PATH_DIR_TEST);
+        ) {
+            stream.sorted(Comparator.reverseOrder())
+                  .map(Path::toFile)
+                  .forEach(File::delete);
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
