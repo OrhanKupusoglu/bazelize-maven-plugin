@@ -356,7 +356,7 @@ INFO: Elapsed time: 7.288s, Critical Path: 2.36s
 INFO: 7 processes: 2 linux-sandbox, 2 local, 3 worker.
 INFO: Build completed successfully, 16 total actions
 
-# call all tests: bazel test ...
+# to call all tests: bazel test ...
 # to capture the test output: --test_output all
 $ bazel test com.mycompany.app.AppTest
 INFO: Analysed target //:com.mycompany.app.AppTest (0 packages loaded).
