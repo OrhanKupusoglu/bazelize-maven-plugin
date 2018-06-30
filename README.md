@@ -315,7 +315,6 @@ java_library(
     visibility = ["//visibility:public"],
     srcs = glob(["src/main/java/com/mycompany/app/*.java"]),
     resources = [
-
     ],
     deps = [
         "@junit_junit_3_8_1//jar",
@@ -328,7 +327,6 @@ java_test(
     test_class = "com.mycompany.app.AppTest",
     srcs = ["src/test/java/com/mycompany/app/AppTest.java"],
     resources = [
-
     ],
     deps = [
         ":com_mycompany_app_my_app_1_0_SNAPSHOT",
