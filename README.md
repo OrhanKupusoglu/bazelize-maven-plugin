@@ -294,6 +294,54 @@ $ mvn bazelize:binary -DmainClass=com.mycompany.app.App
 $ mvn bazelize:clean
 ```
 
+Check the **WORKSPACE** script:
+
+```
+$ cat WORKSPACE
+maven_jar(
+    name = "junit_junit_3_8_1",
+    artifact = "junit:junit:3.8.1",
+)
+```
+
+Check the **BUILD** script:
+
+```
+$ cat BUILD
+java_library(
+    name = "com_mycompany_app_my_app_1_0_SNAPSHOT",
+    visibility = ["//visibility:public"],
+    srcs = glob(["src/main/java/com/mycompany/app/*.java"]),
+    resources = [
+
+    ],
+    deps = [
+        "@junit_junit_3_8_1//jar",
+    ],
+)
+
+java_test(
+    name = "com.mycompany.app.AppTest",
+    size = "small",
+    test_class = "com.mycompany.app.AppTest",
+    srcs = ["src/test/java/com/mycompany/app/AppTest.java"],
+    resources = [
+
+    ],
+    deps = [
+        ":com_mycompany_app_my_app_1_0_SNAPSHOT",
+    ],
+)
+
+java_binary(
+    name = "com.mycompany.app.App",
+    runtime_deps = [
+        ":com_mycompany_app_my_app_1_0_SNAPSHOT",
+    ],
+    main_class = "com.mycompany.app.App",
+)
+```
+
 Let's test with Bazel:
 
 ```
