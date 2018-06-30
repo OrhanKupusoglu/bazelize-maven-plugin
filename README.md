@@ -22,7 +22,9 @@ Although equipped with an impressive feature set, **Google Bazel** faces the usu
 
 Bazel itself provides a [systematic approach](https://docs.bazel.build/versions/master/migrate-maven.html) to migrate from Maven to Bazel. The required **WORKSPACE** script can be generated with [Migration tooling](https://github.com/bazelbuild/migration-tooling). The **BUILD** scripts require manual intervention.
 
-The [migrator-maven-plugin](https://github.com/zmeggyesi/migrator-maven-plugin) by *Zalán Meggyesi* may be a good starting point.
+The [migrator-maven-plugin](https://github.com/zmeggyesi/migrator-maven-plugin) by *Zalán Meggyesi* may be a good starting point for Java developers.
+
+The curated list [Awesome Bazel](https://github.com/jin/awesome-bazel) by *Jingwen* holds pointers about Bazel.
 
 &nbsp;
 
