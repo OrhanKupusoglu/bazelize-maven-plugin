@@ -1,8 +1,11 @@
 java_test(
     name = "#TEST_NAME#",
-    srcs = ["#SRCS_GLOB#"],
-    test_class = "#TEST_CLASS#",
     size = "small",
+    test_class = "#TEST_CLASS#",
+    srcs = ["#SRCS_GLOB#"],
+    resources = [
+#RES_FILES#
+    ],
     deps = [
 #JAVA_DEPS#
     ],

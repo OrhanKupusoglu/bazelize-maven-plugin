@@ -85,6 +85,9 @@ public class GoalBuild extends AbstractMojo {
     @Parameter(property = "addServer", defaultValue = "true")
     private Boolean addServer;
 
+    @Parameter(property = "resMain", defaultValue = "src/main/resources")
+    private String resMain;
+
     private SortedSet<MavenDependency> allDependencies = new TreeSet<>();
     private SortedSet<MavenServer> allServers = new TreeSet<>();
     private LocalDateTime dateTime = LocalDateTime.now();
@@ -274,6 +277,7 @@ public class GoalBuild extends AbstractMojo {
         Common.Dependency metaDep = Common.queryLibrary(libName);
 
         String contentLibrary = Common.getTemplateLibrary();
+        String resFiles= Common.getResources(resMain);
 
         StringBuilder jsonDependency = new StringBuilder();
         StringBuilder jsonServer = new StringBuilder();
@@ -297,10 +301,10 @@ public class GoalBuild extends AbstractMojo {
 
                 for (MavenDependency dep : allDependencies) {
                     String depName = Common.sanitize(dep.getGroupId()
-                                                    + Common.getSepSanitize()
-                                                    + dep.getArtifactId()
-                                                    + Common.getSepSanitize()
-                                                    + dep.getVersion());
+                                                     + Common.getSepSanitize()
+                                                     + dep.getArtifactId()
+                                                     + Common.getSepSanitize()
+                                                     + dep.getVersion());
 
                     if (!Common.isBlackListed(depName)) {
                         JSONObject jsonObject = new JSONObject(dep);
@@ -347,6 +351,8 @@ public class GoalBuild extends AbstractMojo {
                                                                libName)
                                                  .replaceFirst("#SRCS_GLOB#",
                                                                Common.getGlobSources(metaDep.getSources()))
+                                                 .replaceFirst("#RES_FILES#",
+                                                               resFiles)
                                                  .replaceFirst("#JAVA_DEPS#",
                                                                Common.removeLastChars(build.toString(), 1)));
 

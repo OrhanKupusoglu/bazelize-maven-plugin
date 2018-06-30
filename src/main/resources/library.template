@@ -2,6 +2,9 @@ java_library(
     name = "#LIB_NAME#",
     visibility = ["//visibility:public"],
     srcs = #SRCS_GLOB#,
+    resources = [
+#RES_FILES#
+    ],
     deps = [
 #JAVA_DEPS#
     ],

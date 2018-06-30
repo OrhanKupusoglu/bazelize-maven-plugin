@@ -21,6 +21,7 @@ public class CreateTest extends SimpleFileVisitor<Path> {
     private Log log;
     private Path root;
     private String srcTest;
+    private String resTest;
     private Path pathTest;
     private PathMatcher matcherTestJava;
     private Path fileBuildPath;
@@ -29,10 +30,11 @@ public class CreateTest extends SimpleFileVisitor<Path> {
     private int numJavaTestMatches = 0;
 
 
-    public CreateTest(Log log, Path root, String srcTest) {
+    public CreateTest(Log log, Path root, String srcTest, String resTest) {
         this.log = log;
         this.root = root;
         this.srcTest = srcTest;
+        this.resTest = resTest;
         this.pathTest = Paths.get(this.root + File.separator + srcTest).toAbsolutePath();
         this.matcherTestJava = FileSystems.getDefault().getPathMatcher("glob:*.java");
         this.fileBuildPath = Paths.get(this.root + File.separator + Common.OUTPUT_FILES.BUILD).toAbsolutePath();
@@ -86,6 +88,7 @@ public class CreateTest extends SimpleFileVisitor<Path> {
 
     public void addTest(String nameCanonical, String srcTestFile) {
         String contentTest = Common.getTemplateTest();
+        String resFiles= Common.getResources(resTest);
         StringBuilder sb = new StringBuilder();
 
         sb.append(Common.getIndentTwo());
@@ -107,8 +110,11 @@ public class CreateTest extends SimpleFileVisitor<Path> {
                                                             srcTestFile)
                                               .replaceFirst("#TEST_CLASS#",
                                                             nameCanonical)
+                                              .replaceFirst("#RES_FILES#",
+                                                            resFiles)
                                               .replaceFirst("#JAVA_DEPS#",
                                                             depLibName));
+                ;
             } catch (IOException e) {
                 log.error(e.getMessage());
             }
