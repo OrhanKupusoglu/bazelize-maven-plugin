@@ -586,12 +586,15 @@ public class Common {
                                          .map(Path::toFile)
                                          .collect(Collectors.toList());
 
-                for (File file : files) {
-                    sb.append(Common.getIndentTwo());
-                    sb.append("\"");
-                    sb.append(file.toString());
-                    sb.append("\",");
+                if (files.size() > 0) {
                     sb.append("\n");
+                    for (File file : files) {
+                        sb.append(Common.getIndentTwo());
+                        sb.append("\"");
+                        sb.append(file.toString());
+                        sb.append("\",");
+                        sb.append("\n");
+                    }
                 }
 
                 if (sb.length() > 0) {
