@@ -43,6 +43,9 @@ public class GoalTest extends AbstractMojo {
     @Parameter(property = "srcTest", defaultValue = "src/test/java")
     private String srcTest;
 
+    @Parameter(property = "resTest", defaultValue = "src/test/resources")
+    private String resTest;
+
 
     public void execute() throws MojoExecutionException {
         String finalSuffix = null;
@@ -62,7 +65,11 @@ public class GoalTest extends AbstractMojo {
             System.exit(2);
         } else {
             try {
-                Common.generateTest(getLog(), project.getBasedir().getAbsolutePath(), srcTest, finalSuffix);
+                Common.generateTest(getLog(),
+                                    project.getBasedir().getAbsolutePath(),
+                                    srcTest,
+                                    resTest,
+                                    finalSuffix);
             } catch (MojoExecutionException e) {
                 getLog().error(e.getMessage());
             }

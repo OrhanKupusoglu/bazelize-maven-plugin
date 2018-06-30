@@ -16,18 +16,20 @@ public class SaveTest {
     private Log log;
     private String rootDir;
     private String srcTest;
+    private String resTest;
 
 
     public SaveTest() {
         super();
     }
 
-    public SaveTest(Log log, String rootDir, String srcTest) {
+    public SaveTest(Log log, String rootDir, String srcTest, String resTest) {
         this();
 
         this.log = log;
         this.rootDir = rootDir;
         this.srcTest = srcTest;
+        this.resTest = resTest;
     }
 
     public void execute() throws MojoExecutionException {
@@ -40,7 +42,8 @@ public class SaveTest {
             try {
                 CreateTest createTest = new CreateTest(log,
                                                        root,
-                                                       srcTest);
+                                                       srcTest,
+                                                       resTest);
 
                 if (createTest.isLibraryFound()) {
                     java.nio.file.Files.walkFileTree(Paths.get(root + File.separator + srcTest).toAbsolutePath(), createTest);

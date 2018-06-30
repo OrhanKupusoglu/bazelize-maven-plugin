@@ -10,11 +10,14 @@ import org.json.JSONObject;
 import java.io.*;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 
 /**
  * Common utilities of the plugin
@@ -395,7 +398,7 @@ public class Common {
             }
         } catch (FileNotFoundException e1) {
             String errMsg = "[ERROR] file not found exception: " + filenameMeta;
-            System.out.println(errMsg + "\n");
+            System.err.println(errMsg + "\n");
             throw new IOException(errMsg);
         } catch (Exception e2) {
             e2.printStackTrace();
@@ -489,7 +492,7 @@ public class Common {
             }
         } catch (NullPointerException e) {
             String errMsg = "[ERROR] file not found exception: " + inputStream.toString();
-            System.out.println(errMsg + "\n");
+            System.err.println(errMsg + "\n");
             throw new IOException(errMsg);
         } catch (Exception e) {
             e.printStackTrace();
@@ -544,13 +547,13 @@ public class Common {
         saveBinary.execute();
     }
 
-    public static void generateTest(Log log, String rootDir, String srcTest, String suffix)
+    public static void generateTest(Log log, String rootDir, String srcTest, String resTest, String suffix)
         throws MojoExecutionException {
         if (suffix != null) {
             copyFileIfExists(rootDir + File.separator + OUTPUT_FILES.BUILD, suffix);
         }
 
-        SaveTest saveTest = new SaveTest(log, rootDir, srcTest);
+        SaveTest saveTest = new SaveTest(log, rootDir, srcTest, resTest);
         saveTest.execute();
     }
 
@@ -566,5 +569,40 @@ public class Common {
         sb.append("])");
 
         return sb.toString();
+    }
+
+    public static String getResources(String dir) {
+        Optional<String> res = Optional.empty();
+
+        // De Morgan's laws
+        // https://en.wikipedia.org/wiki/De_Morgan%27s_laws
+        // if (dir != null && !dir.isEmpty())
+        if (!(dir == null || dir.isEmpty())) {
+            try (
+                Stream<Path> stream = java.nio.file.Files.walk(Paths.get(dir));
+            ) {
+                StringBuilder sb = new StringBuilder();
+                List<File> files = stream.filter(java.nio.file.Files::isRegularFile)
+                                         .map(Path::toFile)
+                                         .collect(Collectors.toList());
+
+                for (File file : files) {
+                    sb.append(Common.getIndentTwo());
+                    sb.append("\"");
+                    sb.append(file.toString());
+                    sb.append("\",");
+                    sb.append("\n");
+                }
+
+                if (sb.length() > 0) {
+                    sb.deleteCharAt(sb.length() - 1);
+                    res = Optional.of(sb.toString());
+                }
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
+
+        return res.orElse("");
     }
 }
