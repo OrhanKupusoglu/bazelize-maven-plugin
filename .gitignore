@@ -1,4 +1,8 @@
-/target/
+/target
+/bazel*
 .idea
-_*
+tmp-bzl-*.json
+BUILD*
+WORKSPACE*
 pom-effective.xml
+_*
