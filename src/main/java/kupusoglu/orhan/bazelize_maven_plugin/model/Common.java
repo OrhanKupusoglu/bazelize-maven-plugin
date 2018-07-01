@@ -601,8 +601,8 @@ public class Common {
                     sb.deleteCharAt(sb.length() - 1);
                     res = Optional.of(sb.toString());
                 }
-            } catch (IOException ex) {
-                System.err.println(ex.getMessage());
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
             }
         }
 
