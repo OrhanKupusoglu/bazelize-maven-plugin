@@ -29,6 +29,7 @@ public class Common {
     private static Optional<String> TEMPLATE_BINARY;
     private static Optional<String> TEMPLATE_TEST;
     private static Optional<String> TEMPLATE_SERVER;
+    private static Optional<String> RES_CLASS = Optional.empty();
     private static Pattern PATTERN_BLACK_LIST = Pattern.compile("^jdk_tools");
 
     private static final char SEP_SANITIZE = '_';
@@ -571,38 +572,44 @@ public class Common {
         return sb.toString();
     }
 
-    public static String getResources(String dir) {
+    public static synchronized String getResources(String dir) {
         Optional<String> res = Optional.empty();
 
         // De Morgan's laws
         // https://en.wikipedia.org/wiki/De_Morgan%27s_laws
         // if (dir != null && !dir.isEmpty())
         if (!(dir == null || dir.isEmpty())) {
-            try (
-                Stream<Path> stream = java.nio.file.Files.walk(Paths.get(dir));
-            ) {
-                StringBuilder sb = new StringBuilder();
-                List<File> files = stream.filter(java.nio.file.Files::isRegularFile)
-                                         .map(Path::toFile)
-                                         .collect(Collectors.toList());
+            if (RES_CLASS.isPresent()) {
+                res = RES_CLASS;
+            } else {
+                try (
+                    Stream<Path> stream = java.nio.file.Files.walk(Paths.get(dir));
+                ) {
+                    StringBuilder sb = new StringBuilder();
+                    List<File> files = stream.filter(java.nio.file.Files::isRegularFile)
+                        .map(Path::toFile)
+                        .collect(Collectors.toList());
 
-                if (files.size() > 0) {
-                    sb.append("\n");
-                    for (File file : files) {
-                        sb.append(Common.getIndentTwo());
-                        sb.append("\"");
-                        sb.append(file.toString());
-                        sb.append("\",");
+                    if (files.size() > 0) {
                         sb.append("\n");
+                        for (File file : files) {
+                            sb.append(Common.getIndentTwo());
+                            sb.append("\"");
+                            sb.append(file.toString());
+                            sb.append("\",");
+                            sb.append("\n");
+                        }
                     }
+
+                    if (sb.length() > 0) {
+                        sb.deleteCharAt(sb.length() - 1);
+                        res = Optional.of(sb.toString());
+                    }
+                } catch (IOException e) {
+                    System.err.println(e.getMessage());
                 }
 
-                if (sb.length() > 0) {
-                    sb.deleteCharAt(sb.length() - 1);
-                    res = Optional.of(sb.toString());
-                }
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
+                RES_CLASS = res;
             }
         }
 
