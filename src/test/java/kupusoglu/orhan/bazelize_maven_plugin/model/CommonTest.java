@@ -1,8 +1,8 @@
 package kupusoglu.orhan.bazelize_maven_plugin.model;
 
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;
@@ -20,14 +20,14 @@ import java.util.stream.Stream;
 
 
 public class CommonTest {
-    final private String FILE_NAME = "test-file.txt";
-    final private String FILE_SUFFIX = "_backup";
-    final private String FILE_CONTENT = "After more than 80 years in service, the Douglas DC-3 is still going strong.\n"
-                                      + "https://www.flyingmag.com/dc-3-an-airplane-for-ages\n";
-    final private Path PATH_DIR_TEST = Paths.get("/tmp/bazelize-maven-plugin");
+    final private static String FILE_NAME = "test-file.txt";
+    final private static String FILE_SUFFIX = "_backup";
+    final private static String FILE_CONTENT = "After more than 80 years in service, the Douglas DC-3 is still going strong.\n"
+                                             + "https://www.flyingmag.com/dc-3-an-airplane-for-ages\n";
+    final private static Path PATH_DIR_TEST = Paths.get("/tmp/bazelize-maven-plugin");
 
 
-    private void rmDir(final Path dirName) {
+    private static void rmDir(final Path dirName) {
         try (
             Stream<Path> stream = Files.walk(dirName);
         ) {
@@ -42,7 +42,7 @@ public class CommonTest {
                            Files.exists(dirName));
     }
 
-    private void mkDir(final Path dirName) {
+    private static void mkDir(final Path dirName) {
         try {
             Files.createDirectory(dirName);
         } catch (IOException e) {
@@ -53,7 +53,7 @@ public class CommonTest {
                           Files.exists(dirName) && Files.isDirectory(dirName));
     }
 
-    private void mkFile(final Path dirName, final String fileName) {
+    private static void mkFile(final Path dirName, final String fileName) {
         Path path = Paths.get(dirName.toString(), fileName);
 
         try {
@@ -72,15 +72,15 @@ public class CommonTest {
                           Files.exists(path) && Files.isRegularFile(path));
     }
 
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() {
         rmDir(PATH_DIR_TEST);
         mkDir(PATH_DIR_TEST);
         mkFile(PATH_DIR_TEST, FILE_NAME);
     }
 
-    @After
-    public void tearDown() {
+    @AfterClass
+    public static void tearDown() {
         rmDir(PATH_DIR_TEST);
     }
 
