@@ -24,7 +24,7 @@ Bazel itself provides a [systematic approach](https://docs.bazel.build/versions/
 
 The [migrator-maven-plugin](https://github.com/zmeggyesi/migrator-maven-plugin) by *Zalán Meggyesi* may be a good starting point for Java developers.
 
-The curated list [Awesome Bazel](https://github.com/jin/awesome-bazel) by *Jingwen* holds pointers about Bazel.
+The curated list [Awesome Bazel](https://github.com/jin/awesome-bazel) by *Jingwen* holds up-to-date pointers about Bazel.
 
 &nbsp;
 
@@ -184,7 +184,7 @@ An important caveat is Bazel's lack of support for [OSGi bundles](https://www.os
 
 Unfortunately OSGi bundle JARs are required for the [Apache Karaf](https://karaf.apache.org/) runtime environment, and can be easily generated on Maven with [Apache Felix](http://felix.apache.org/).
 
-Missing features can be added by writing [extensions](https://docs.bazel.build/versions/master/skylark/concepts.html).
+Missing features can be added by writing [extensions](https://docs.bazel.build/versions/master/skylark/concepts.html):
 > Bazel extensions are files ending in .bzl. Use the load statement to import a symbol from an extension.
 
 &nbsp;
