@@ -27,9 +27,9 @@ public class CommonTest {
     final private Path PATH_DIR_TEST = Paths.get("/tmp/bazelize-maven-plugin");
 
 
-    private void rmDir() {
+    private void rmDir(final Path dirName) {
         try (
-            Stream<Path> stream = Files.walk(PATH_DIR_TEST);
+            Stream<Path> stream = Files.walk(dirName);
         ) {
             stream.sorted(Comparator.reverseOrder())
                   .map(Path::toFile)
@@ -38,23 +38,23 @@ public class CommonTest {
             System.err.println(e.getMessage());
         }
 
-        Assert.assertFalse("Temp directory still exists: " + PATH_DIR_TEST.toString(),
-                           Files.exists(PATH_DIR_TEST));
+        Assert.assertFalse("Temp directory still exists: " + dirName.toString(),
+                           Files.exists(dirName));
     }
 
-    private void mkDir() {
+    private void mkDir(final Path dirName) {
         try {
-            Files.createDirectory(PATH_DIR_TEST);
+            Files.createDirectory(dirName);
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
 
-        Assert.assertTrue("Temp directory could not be created: " + PATH_DIR_TEST.toString(),
-                          Files.exists(PATH_DIR_TEST) && Files.isDirectory(PATH_DIR_TEST));
+        Assert.assertTrue("Temp directory could not be created: " + dirName.toString(),
+                          Files.exists(dirName) && Files.isDirectory(dirName));
     }
 
-    private void mkFile(final String fileName) {
-        Path path = Paths.get(PATH_DIR_TEST.toString(), fileName);
+    private void mkFile(final Path dirName, final String fileName) {
+        Path path = Paths.get(dirName.toString(), fileName);
 
         try {
             final InputStream inputStream = Common.class.getClassLoader().getResourceAsStream(fileName);
@@ -74,14 +74,14 @@ public class CommonTest {
 
     @Before
     public void setUp() {
-        rmDir();
-        mkDir();
-        mkFile(FILE_NAME);
+        rmDir(PATH_DIR_TEST);
+        mkDir(PATH_DIR_TEST);
+        mkFile(PATH_DIR_TEST, FILE_NAME);
     }
 
     @After
     public void tearDown() {
-        rmDir();
+        rmDir(PATH_DIR_TEST);
     }
 
     @Test
