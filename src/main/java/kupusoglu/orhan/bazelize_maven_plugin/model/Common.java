@@ -344,6 +344,8 @@ public class Common {
     }
     // UNIT TEST END
 
+    // SYNCHRONIZED START
+
     public static synchronized void setProjectData(String key, String value) {
         if (MAP_PROJECT_DATA == null) {
             MAP_PROJECT_DATA = new HashMap<>();
@@ -379,6 +381,92 @@ public class Common {
             return null;
         }
     }
+
+    public static synchronized String getTemplateLibrary() {
+        if (!TEMPLATE_LIBRARY.isPresent()) {
+            TEMPLATE_LIBRARY = readTemplate(INPUT_FILES.TEMPLATE_LIBRARY);
+        }
+
+        return TEMPLATE_LIBRARY.orElse("");
+    }
+
+    public static synchronized String getTemplateBinary() {
+        if (!TEMPLATE_BINARY.isPresent()) {
+            TEMPLATE_BINARY = readTemplate(INPUT_FILES.TEMPLATE_BINARY);
+        }
+
+        return TEMPLATE_BINARY.orElse("");
+    }
+
+    public static synchronized String getTemplateTest() {
+        if (!TEMPLATE_TEST.isPresent()) {
+            TEMPLATE_TEST = readTemplate(INPUT_FILES.TEMPLATE_TEST);
+        }
+
+        return TEMPLATE_TEST.orElse("");
+    }
+
+    public static synchronized String getTemplateServer() {
+        if (!TEMPLATE_SERVER.isPresent()) {
+            TEMPLATE_SERVER = readTemplate(INPUT_FILES.TEMPLATE_SERVER);
+        }
+
+        return TEMPLATE_SERVER.orElse("");
+    }
+
+    public static synchronized void setBlackListPattern(String blackListPattern) {
+        if (blackListPattern == null || blackListPattern.isEmpty()) {
+            PATTERN_BLACK_LIST = null;
+        } else {
+            PATTERN_BLACK_LIST = Pattern.compile(blackListPattern);
+        }
+    }
+
+    public static synchronized String getResources(String dir) {
+        Optional<String> res = Optional.empty();
+
+        // De Morgan's laws
+        // https://en.wikipedia.org/wiki/De_Morgan%27s_laws
+        // if (dir != null && !dir.isEmpty())
+        if (!(dir == null || dir.isEmpty())) {
+            if (RES_CLASS.isPresent()) {
+                res = RES_CLASS;
+            } else {
+                try (
+                        Stream<Path> stream = java.nio.file.Files.walk(Paths.get(dir));
+                ) {
+                    StringBuilder sb = new StringBuilder();
+                    List<File> files = stream.filter(java.nio.file.Files::isRegularFile)
+                            .map(Path::toFile)
+                            .collect(Collectors.toList());
+
+                    if (files.size() > 0) {
+                        sb.append("\n");
+                        for (File file : files) {
+                            sb.append(Common.getIndentTwo());
+                            sb.append("\"");
+                            sb.append(file.toString());
+                            sb.append("\",");
+                            sb.append("\n");
+                        }
+                    }
+
+                    if (sb.length() > 0) {
+                        sb.deleteCharAt(sb.length() - 1);
+                        res = Optional.of(sb.toString());
+                    }
+                } catch (IOException e) {
+                    System.err.println(e.getMessage());
+                }
+
+                RES_CLASS = res;
+            }
+        }
+
+        return res.orElse("");
+    }
+
+    // SYNCHRONIZED END
 
     private static void jsonToMap() throws IOException {
         String filenameMeta = OUTPUT_FILES.JSON_META.toString();
@@ -431,38 +519,6 @@ public class Common {
         }
     }
 
-    public static synchronized String getTemplateLibrary() {
-        if (!TEMPLATE_LIBRARY.isPresent()) {
-            TEMPLATE_LIBRARY = readTemplate(INPUT_FILES.TEMPLATE_LIBRARY);
-        }
-
-        return TEMPLATE_LIBRARY.orElse("");
-    }
-
-    public static synchronized String getTemplateBinary() {
-        if (!TEMPLATE_BINARY.isPresent()) {
-            TEMPLATE_BINARY = readTemplate(INPUT_FILES.TEMPLATE_BINARY);
-        }
-
-        return TEMPLATE_BINARY.orElse("");
-    }
-
-    public static synchronized String getTemplateTest() {
-        if (!TEMPLATE_TEST.isPresent()) {
-            TEMPLATE_TEST = readTemplate(INPUT_FILES.TEMPLATE_TEST);
-        }
-
-        return TEMPLATE_TEST.orElse("");
-    }
-
-    public static synchronized String getTemplateServer() {
-        if (!TEMPLATE_SERVER.isPresent()) {
-            TEMPLATE_SERVER = readTemplate(INPUT_FILES.TEMPLATE_SERVER);
-        }
-
-        return TEMPLATE_SERVER.orElse("");
-    }
-
     private static Optional<String> readTemplate(INPUT_FILES input) {
         String filenameBuild = input.toString();
 
@@ -483,6 +539,7 @@ public class Common {
         return template;
     }
 
+    // public because called by CommonTest
     public static String readFromInputStream(InputStream inputStream) throws IOException {
         StringBuilder resultStringBuilder = new StringBuilder();
 
@@ -500,14 +557,6 @@ public class Common {
         }
 
         return resultStringBuilder.toString();
-    }
-
-    public static synchronized void setBlackListPattern(String blackListPattern) {
-        if (blackListPattern == null || blackListPattern.isEmpty()) {
-            PATTERN_BLACK_LIST = null;
-        } else {
-            PATTERN_BLACK_LIST = Pattern.compile(blackListPattern);
-        }
     }
 
     public static boolean isBlackListed(String dep) {
@@ -570,49 +619,5 @@ public class Common {
         sb.append("])");
 
         return sb.toString();
-    }
-
-    public static synchronized String getResources(String dir) {
-        Optional<String> res = Optional.empty();
-
-        // De Morgan's laws
-        // https://en.wikipedia.org/wiki/De_Morgan%27s_laws
-        // if (dir != null && !dir.isEmpty())
-        if (!(dir == null || dir.isEmpty())) {
-            if (RES_CLASS.isPresent()) {
-                res = RES_CLASS;
-            } else {
-                try (
-                    Stream<Path> stream = java.nio.file.Files.walk(Paths.get(dir));
-                ) {
-                    StringBuilder sb = new StringBuilder();
-                    List<File> files = stream.filter(java.nio.file.Files::isRegularFile)
-                        .map(Path::toFile)
-                        .collect(Collectors.toList());
-
-                    if (files.size() > 0) {
-                        sb.append("\n");
-                        for (File file : files) {
-                            sb.append(Common.getIndentTwo());
-                            sb.append("\"");
-                            sb.append(file.toString());
-                            sb.append("\",");
-                            sb.append("\n");
-                        }
-                    }
-
-                    if (sb.length() > 0) {
-                        sb.deleteCharAt(sb.length() - 1);
-                        res = Optional.of(sb.toString());
-                    }
-                } catch (IOException e) {
-                    System.err.println(e.getMessage());
-                }
-
-                RES_CLASS = res;
-            }
-        }
-
-        return res.orElse("");
     }
 }
