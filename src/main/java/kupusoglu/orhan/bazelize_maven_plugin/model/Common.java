@@ -345,7 +345,6 @@ public class Common {
     // UNIT TEST END
 
     // SYNCHRONIZED START
-
     public static synchronized void setProjectData(String key, String value) {
         if (MAP_PROJECT_DATA == null) {
             MAP_PROJECT_DATA = new HashMap<>();
@@ -465,7 +464,6 @@ public class Common {
 
         return res.orElse("");
     }
-
     // SYNCHRONIZED END
 
     private static void jsonToMap() throws IOException {
