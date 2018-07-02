@@ -25,10 +25,10 @@ import java.util.stream.Stream;
 public class Common {
     private static HashMap<String, Dependency> MAP_META_DEPENDENCY;
     private static HashMap<String, String> MAP_PROJECT_DATA;
-    private static Optional<String> TEMPLATE_LIBRARY;
-    private static Optional<String> TEMPLATE_BINARY;
-    private static Optional<String> TEMPLATE_TEST;
-    private static Optional<String> TEMPLATE_SERVER;
+    private static Optional<String> TEMPLATE_LIBRARY = Optional.empty();
+    private static Optional<String> TEMPLATE_BINARY = Optional.empty();
+    private static Optional<String> TEMPLATE_TEST = Optional.empty();
+    private static Optional<String> TEMPLATE_SERVER = Optional.empty();
     private static Optional<String> RES_CLASS = Optional.empty();
     private static Pattern PATTERN_BLACK_LIST = Pattern.compile("^jdk_tools");
 
@@ -432,7 +432,7 @@ public class Common {
     }
 
     public static synchronized String getTemplateLibrary() {
-        if (TEMPLATE_LIBRARY == null) {
+        if (!TEMPLATE_LIBRARY.isPresent()) {
             TEMPLATE_LIBRARY = readTemplate(INPUT_FILES.TEMPLATE_LIBRARY);
         }
 
@@ -440,7 +440,7 @@ public class Common {
     }
 
     public static synchronized String getTemplateBinary() {
-        if (TEMPLATE_BINARY == null) {
+        if (!TEMPLATE_BINARY.isPresent()) {
             TEMPLATE_BINARY = readTemplate(INPUT_FILES.TEMPLATE_BINARY);
         }
 
@@ -448,7 +448,7 @@ public class Common {
     }
 
     public static synchronized String getTemplateTest() {
-        if (TEMPLATE_TEST == null) {
+        if (!TEMPLATE_TEST.isPresent()) {
             TEMPLATE_TEST = readTemplate(INPUT_FILES.TEMPLATE_TEST);
         }
 
@@ -456,7 +456,7 @@ public class Common {
     }
 
     public static synchronized String getTemplateServer() {
-        if (TEMPLATE_SERVER == null) {
+        if (!TEMPLATE_SERVER.isPresent()) {
             TEMPLATE_SERVER = readTemplate(INPUT_FILES.TEMPLATE_SERVER);
         }
 
