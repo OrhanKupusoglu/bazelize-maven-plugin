@@ -322,7 +322,7 @@ java_library(
 )
 
 java_test(
-    name = "com.mycompany.app.AppTest",
+    name = "com_mycompany_app_AppTest",
     size = "small",
     test_class = "com.mycompany.app.AppTest",
     srcs = ["src/test/java/com/mycompany/app/AppTest.java"],
@@ -334,7 +334,7 @@ java_test(
 )
 
 java_binary(
-    name = "com.mycompany.app.App",
+    name = "com_mycompany_app_App",
     runtime_deps = [
         ":com_mycompany_app_my_app_1_0_SNAPSHOT",
     ],
@@ -345,78 +345,76 @@ java_binary(
 Let's test with Bazel:
 
 ```
-$ bazel build ...
+$$ bazel build ...
 Starting local Bazel server and connecting to it...
-.........
-INFO: Analysed 3 targets (18 packages loaded).
+........
+INFO: Analysed 3 targets (17 packages loaded).
 INFO: Found 3 targets...
-INFO: Elapsed time: 7.288s, Critical Path: 2.36s
+INFO: Elapsed time: 8.461s, Critical Path: 2.33s
 INFO: 7 processes: 2 linux-sandbox, 2 local, 3 worker.
 INFO: Build completed successfully, 16 total actions
 
 # to call all tests: bazel test ...
 # to capture the test output: --test_output all
-$ bazel test com.mycompany.app.AppTest
-INFO: Analysed target //:com.mycompany.app.AppTest (0 packages loaded).
+$ bazel test com_mycompany_app_AppTest
+INFO: Analysed target //:com_mycompany_app_AppTest (0 packages loaded).
 INFO: Found 1 test target...
-Target //:com.mycompany.app.AppTest up-to-date:
-  bazel-bin/com.mycompany.app.AppTest.jar
-  bazel-bin/com.mycompany.app.AppTest
-INFO: Elapsed time: 0.584s, Critical Path: 0.31s
+Target //:com_mycompany_app_AppTest up-to-date:
+  bazel-bin/com_mycompany_app_AppTest.jar
+  bazel-bin/com_mycompany_app_AppTest
+INFO: Elapsed time: 0.568s, Critical Path: 0.25s
 INFO: 1 process, linux-sandbox.
 INFO: Build completed successfully, 2 total actions
-//:com.mycompany.app.AppTest                                             PASSED in 0.2s
+//:com_mycompany_app_AppTest                                             PASSED in 0.2s
 
-INFO: Build completed successfully, 2 total actions
+Executed 1 out of 1 test: 1 test passes.
 
-$ bazel run com.mycompany.app.App
-INFO: Analysed target //:com.mycompany.app.App (0 packages loaded).
+$ bazel run com_mycompany_app_App
+INFO: Analysed target //:com_mycompany_app_App (0 packages loaded).
 INFO: Found 1 target...
-Target //:com.mycompany.app.App up-to-date:
-  bazel-bin/com.mycompany.app.App.jar
-  bazel-bin/com.mycompany.app.App
-INFO: Elapsed time: 0.237s, Critical Path: 0.00s
+Target //:com_mycompany_app_App up-to-date:
+  bazel-bin/com_mycompany_app_App.jar
+  bazel-bin/com_mycompany_app_App
+INFO: Elapsed time: 0.373s, Critical Path: 0.01s
 INFO: 0 processes.
 INFO: Build completed successfully, 1 total action
-INFO: Build completed successfully, 1 total action
+
+INFO: Running command line: bazel-bin/com_mycompany_app_App
 Hello World!
 
-$ bazel build libcom_mycompany_app_my_app_1_0_SNAPSHOT-src.jar
-INFO: Analysed target //:libcom_mycompany_app_my_app_1_0_SNAPSHOT-src.jar (0 packages loaded).
+$ bazel build libcom_mycompany_app_my_app_1_0_SNAPSHOT-src.jarINFO: Analysed target //:libcom_mycompany_app_my_app_1_0_SNAPSHOT-src.jar (0 packages loaded).
 INFO: Found 1 target...
 Target //:libcom_mycompany_app_my_app_1_0_SNAPSHOT-src.jar up-to-date:
   bazel-bin/libcom_mycompany_app_my_app_1_0_SNAPSHOT-src.jar
-INFO: Elapsed time: 0.275s, Critical Path: 0.06s
+INFO: Elapsed time: 0.257s, Critical Path: 0.07s
 INFO: 1 process, linux-sandbox.
 INFO: Build completed successfully, 3 total actions
 
-$ bazel build com.mycompany.app.App_deploy.jar
-INFO: Analysed target //:com.mycompany.app.App_deploy.jar (0 packages loaded).
+$ bazel build com_mycompany_app_App_deploy.jar
+INFO: Analysed target //:com_mycompany_app_App_deploy.jar (0 packages loaded).
 INFO: Found 1 target...
-Target //:com.mycompany.app.App_deploy.jar up-to-date:
-  bazel-bin/com.mycompany.app.App_deploy.jar
-INFO: Elapsed time: 0.334s, Critical Path: 0.09s
+Target //:com_mycompany_app_App_deploy.jar up-to-date:
+  bazel-bin/com_mycompany_app_App_deploy.jar
+INFO: Elapsed time: 0.411s, Critical Path: 0.07s
 INFO: 1 process, linux-sandbox.
 INFO: Build completed successfully, 4 total actions
 
-$ bazel test com.mycompany.app.AppTest-src.jar
-INFO: Analysed target //:com.mycompany.app.AppTest-src.jar (0 packages loaded).
-INFO: Found 1 target and 0 test targets...
-Target //:com.mycompany.app.AppTest-src.jar up-to-date:
-  bazel-bin/com.mycompany.app.AppTest-src.jar
-INFO: Elapsed time: 0.282s, Critical Path: 0.07s
+$ bazel build com_mycompany_app_AppTest-src.jar
+INFO: Analysed target //:com_mycompany_app_AppTest-src.jar (0 packages loaded).
+INFO: Found 1 target...
+Target //:com_mycompany_app_AppTest-src.jar up-to-date:
+  bazel-bin/com_mycompany_app_AppTest-src.jar
+INFO: Elapsed time: 0.391s, Critical Path: 0.07s
 INFO: 1 process, linux-sandbox.
-INFO: Build completed successfully, 3 total actions
 INFO: Build completed successfully, 3 total actions
 
-$ bazel test com.mycompany.app.AppTest_deploy.jar
-INFO: Analysed target //:com.mycompany.app.AppTest_deploy.jar (0 packages loaded).
-INFO: Found 1 target and 0 test targets...
-Target //:com.mycompany.app.AppTest_deploy.jar up-to-date:
-  bazel-bin/com.mycompany.app.AppTest_deploy.jar
-INFO: Elapsed time: 0.253s, Critical Path: 0.07s
+$ bazel build com_mycompany_app_AppTest_deploy.jar
+INFO: Analysed target //:com_mycompany_app_AppTest_deploy.jar (0 packages loaded).
+INFO: Found 1 target...
+Target //:com_mycompany_app_AppTest_deploy.jar up-to-date:
+  bazel-bin/com_mycompany_app_AppTest_deploy.jar
+INFO: Elapsed time: 0.398s, Critical Path: 0.10s
 INFO: 1 process, linux-sandbox.
-INFO: Build completed successfully, 3 total actions
 INFO: Build completed successfully, 3 total actions
 
 # after review
@@ -426,8 +424,8 @@ INFO: Starting clean (this may take a while). Consider using --async if the clea
 Bazel can create a [JAR file](https://docs.bazel.build/versions/master/be/java.html#java_binary) containing the sources collected from the transitive closure of the target:
 
 ```
-$ bazel build com.mycompany.app.App_deploy-src.jar
-$ bazel test com.mycompany.app.AppTest_deploy-src.jar
+$ bazel build com_mycompany_app_App_deploy-src.jar
+$ bazel build com_mycompany_app_AppTest_deploy-src.jar
 ```
 
 Bazel can [profile](https://docs.bazel.build/versions/master/skylark/performance.html) a build for [issues](https://www.kchodorow.com/blog/2015/09/18/build-y-u-go-slow/). An HTML page, here *myprofile.out.html*, can be generated to review the build in minute detail:
