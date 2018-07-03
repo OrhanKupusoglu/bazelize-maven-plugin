@@ -7,7 +7,7 @@
     <!-- The Basics -->
     <groupId>kupusoglu.orhan</groupId>
     <artifactId>bazelize-maven-plugin</artifactId>
-    <version>0.2.5</version>
+    <version>0.2.6</version>
     <packaging>maven-plugin</packaging>
 
     <dependencies>
