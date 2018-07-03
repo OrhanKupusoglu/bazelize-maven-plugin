@@ -459,7 +459,7 @@ then
 fi
 EOF
 
-$ chmox +x bazelize.sh
+$ chmod +x bazelize.sh
 $ ./bazelize.sh
 ```
 
