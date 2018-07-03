@@ -460,7 +460,6 @@ fi
 EOF
 
 $ chmox +x bazelize.sh
-
 $ ./bazelize.sh
 ```
 
