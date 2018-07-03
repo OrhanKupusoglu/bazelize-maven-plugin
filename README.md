@@ -437,10 +437,10 @@ $ bazel analyze-profile --html myprofile.out
 
 ### Script
 
-For convenience, a simple shell script to call the goals can be prepared at target project's root:
+Using [heredoc](https://en.wikipedia.org/wiki/Here_document) a simple shell script to call the goals can easily be prepared at target project's root:
 
 ```
-$ cat bazelize.sh 
+cat << 'EOF' > bazelize.sh
 #!/bin/bash
 
 MAIN_CLASS=com.mycompany.app.App
@@ -457,6 +457,7 @@ if [[ ! -z $MAIN_CLASS ]]
 then
     mvn ${MAVEN_PLUGIN}:binary -DmainClass=${MAIN_CLASS}
 fi
+EOF
 
 $ chmox +x bazelize.sh
 
