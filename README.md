@@ -180,7 +180,7 @@ $ bazel help
 
 #### Caveat
 
-An important caveat is Bazel's lack of support for [OSGi bundles](https://www.osgi.org/). Built-in support for [Google Protocol Buffers](https://developers.google.com/protocol-buffers/) is now OK [for Java](https://blog.bazel.build/2017/02/27/protocol-buffers.html).
+One major caveat is Bazel's lack of support for [OSGi bundles](https://www.osgi.org/). Built-in support for [Google Protocol Buffers](https://developers.google.com/protocol-buffers/) is now OK [for Java](https://blog.bazel.build/2017/02/27/protocol-buffers.html).
 
 Unfortunately OSGi bundle JARs are required for the [Apache Karaf](https://karaf.apache.org/) runtime environment, and can be easily generated on Maven with [Apache Felix](http://felix.apache.org/).
 
