@@ -335,10 +335,10 @@ java_test(
 
 java_binary(
     name = "com_mycompany_app_App",
+    main_class = "com.mycompany.app.App",
     runtime_deps = [
         ":com_mycompany_app_my_app_1_0_SNAPSHOT",
     ],
-    main_class = "com.mycompany.app.App",
 )
 ```
 
