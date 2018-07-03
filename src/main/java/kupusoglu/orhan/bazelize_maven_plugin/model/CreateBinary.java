@@ -102,7 +102,7 @@ public class CreateBinary extends SimpleFileVisitor<Path> {
                 try {
                     buildWriter.append("\n");
                     buildWriter.append(contentBinary.replaceFirst("#BIN_NAME#",
-                                                                  this.binName)
+                                                                  Common.sanitize(this.binName))
                                                     .replaceFirst("#RUNTIME_DEPS#",
                                                                   Common.removeLastChars(sb.toString(), 1))
                                                     .replaceFirst("#MAIN_CLASS#",
