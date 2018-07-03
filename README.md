@@ -440,7 +440,7 @@ $ bazel analyze-profile --html myprofile.out
 Using [heredoc](https://en.wikipedia.org/wiki/Here_document) a simple shell script to call the goals can easily be prepared at target project's root:
 
 ```
-cat << 'EOF' > bazelize.sh
+$ cat << 'EOF' > bazelize.sh
 #!/bin/bash
 
 MAIN_CLASS=com.mycompany.app.App
