@@ -347,10 +347,10 @@ Let's test with Bazel:
 ```
 $ bazel build ...
 Starting local Bazel server and connecting to it...
-........
-INFO: Analysed 3 targets (17 packages loaded).
+.........
+INFO: Analysed 3 targets (18 packages loaded).
 INFO: Found 3 targets...
-INFO: Elapsed time: 8.461s, Critical Path: 2.33s
+INFO: Elapsed time: 7.404s, Critical Path: 1.68s
 INFO: 7 processes: 2 linux-sandbox, 2 local, 3 worker.
 INFO: Build completed successfully, 16 total actions
 
@@ -362,12 +362,12 @@ INFO: Found 1 test target...
 Target //:com_mycompany_app_AppTest up-to-date:
   bazel-bin/com_mycompany_app_AppTest.jar
   bazel-bin/com_mycompany_app_AppTest
-INFO: Elapsed time: 0.568s, Critical Path: 0.25s
+INFO: Elapsed time: 0.574s, Critical Path: 0.26s
 INFO: 1 process, linux-sandbox.
 INFO: Build completed successfully, 2 total actions
 //:com_mycompany_app_AppTest                                             PASSED in 0.2s
 
-Executed 1 out of 1 test: 1 test passes.
+INFO: Build completed successfully, 2 total actions
 
 $ bazel run com_mycompany_app_App
 INFO: Analysed target //:com_mycompany_app_App (0 packages loaded).
@@ -375,18 +375,18 @@ INFO: Found 1 target...
 Target //:com_mycompany_app_App up-to-date:
   bazel-bin/com_mycompany_app_App.jar
   bazel-bin/com_mycompany_app_App
-INFO: Elapsed time: 0.373s, Critical Path: 0.01s
+INFO: Elapsed time: 0.264s, Critical Path: 0.01s
 INFO: 0 processes.
 INFO: Build completed successfully, 1 total action
-
-INFO: Running command line: bazel-bin/com_mycompany_app_App
+INFO: Build completed successfully, 1 total action
 Hello World!
 
-$ bazel build libcom_mycompany_app_my_app_1_0_SNAPSHOT-src.jarINFO: Analysed target //:libcom_mycompany_app_my_app_1_0_SNAPSHOT-src.jar (0 packages loaded).
+$ bazel build libcom_mycompany_app_my_app_1_0_SNAPSHOT-src.jar
+INFO: Analysed target //:libcom_mycompany_app_my_app_1_0_SNAPSHOT-src.jar (0 packages loaded).
 INFO: Found 1 target...
 Target //:libcom_mycompany_app_my_app_1_0_SNAPSHOT-src.jar up-to-date:
   bazel-bin/libcom_mycompany_app_my_app_1_0_SNAPSHOT-src.jar
-INFO: Elapsed time: 0.257s, Critical Path: 0.07s
+INFO: Elapsed time: 0.252s, Critical Path: 0.07s
 INFO: 1 process, linux-sandbox.
 INFO: Build completed successfully, 3 total actions
 
@@ -395,7 +395,7 @@ INFO: Analysed target //:com_mycompany_app_App_deploy.jar (0 packages loaded).
 INFO: Found 1 target...
 Target //:com_mycompany_app_App_deploy.jar up-to-date:
   bazel-bin/com_mycompany_app_App_deploy.jar
-INFO: Elapsed time: 0.411s, Critical Path: 0.07s
+INFO: Elapsed time: 0.337s, Critical Path: 0.07s
 INFO: 1 process, linux-sandbox.
 INFO: Build completed successfully, 4 total actions
 
@@ -404,7 +404,7 @@ INFO: Analysed target //:com_mycompany_app_AppTest-src.jar (0 packages loaded).
 INFO: Found 1 target...
 Target //:com_mycompany_app_AppTest-src.jar up-to-date:
   bazel-bin/com_mycompany_app_AppTest-src.jar
-INFO: Elapsed time: 0.391s, Critical Path: 0.07s
+INFO: Elapsed time: 0.296s, Critical Path: 0.05s
 INFO: 1 process, linux-sandbox.
 INFO: Build completed successfully, 3 total actions
 
@@ -413,12 +413,11 @@ INFO: Analysed target //:com_mycompany_app_AppTest_deploy.jar (0 packages loaded
 INFO: Found 1 target...
 Target //:com_mycompany_app_AppTest_deploy.jar up-to-date:
   bazel-bin/com_mycompany_app_AppTest_deploy.jar
-INFO: Elapsed time: 0.398s, Critical Path: 0.10s
+INFO: Elapsed time: 0.254s, Critical Path: 0.07s
 INFO: 1 process, linux-sandbox.
 INFO: Build completed successfully, 3 total actions
 
 # after review
-$ bazel clean --expunge
 INFO: Starting clean (this may take a while). Consider using --async if the clean takes more than several minutes.
 ```
 Bazel can create a [JAR file](https://docs.bazel.build/versions/master/be/java.html#java_binary) containing the sources collected from the transitive closure of the target:
