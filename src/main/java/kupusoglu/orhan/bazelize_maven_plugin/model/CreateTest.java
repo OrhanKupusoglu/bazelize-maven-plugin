@@ -105,7 +105,7 @@ public class CreateTest extends SimpleFileVisitor<Path> {
             try {
                 buildWriter.append("\n");
                 buildWriter.append(contentTest.replaceFirst("#TEST_NAME#",
-                                                            nameCanonical)
+                                                            Common.sanitize(nameCanonical))
                                               .replaceFirst("#SRCS_GLOB#",
                                                             srcTestFile)
                                               .replaceFirst("#TEST_CLASS#",
