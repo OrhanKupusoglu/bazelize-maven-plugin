@@ -208,7 +208,7 @@ The first four goals are expected to be called in succession. A single goal is a
 
 The [Maven lifecycle extension](https://maven.apache.org/examples/maven-3-lifecycle-extensions.html) uses *sessions*, but found to be of limited use. Still it can be seen in action by declaring the plugin in the target project's **pom.xml**:
 
-```
+```xml
 <project>
 ...
     <build>
@@ -266,7 +266,7 @@ $ mvn kupusoglu.orhan:bazelize-maven-plugin:workspace
 
 Clearly this a verbose process, which can be shortened with [Maven plugin prefix resolution](https://maven.apache.org/guides/introduction/introduction-to-plugin-prefix-mapping.html). Since the plugin follows the Maven convention of `${prefix}-maven-plugin` names, its **groupID** can be declared in the [Maven settings file](https://maven.apache.org/settings.html). The Maven settings file is located at `${user.home}/.m2/settings.xml`.
 
-```
+```xml
 <settings>
 ...
     <pluginGroups>
