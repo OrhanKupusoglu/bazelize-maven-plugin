@@ -227,8 +227,8 @@ The [Maven lifecycle extension](https://maven.apache.org/examples/maven-3-lifecy
 With this addition, calling the first goal and the third goal is enough:
 
 ```
-$ mvn bazelize:module
-$ mvn bazelize:build
+$ mvn kupusoglu.orhan:bazelize-maven-plugin:module
+$ mvn kupusoglu.orhan:bazelize-maven-plugin:build
 ```
 
 &nbsp;
