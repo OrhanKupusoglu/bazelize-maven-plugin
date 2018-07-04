@@ -206,6 +206,10 @@ The **Bazelize Maven Plugin** aims to generate all of the required **WORKSPACE**
 
 The first four goals are expected to be called in succession. A single goal is a too big code with no granularity for each step, and calling other goals with **@Execute** [annotation](https://maven.apache.org/plugin-tools/maven-plugin-plugin/examples/using-annotations.html) works only just once.
 
+&nbsp;
+
+## Maven Lifecycle
+
 The [Maven lifecycle extension](https://maven.apache.org/examples/maven-3-lifecycle-extensions.html) uses *sessions*, but found to be of limited use. Still it can be seen in action by declaring the plugin in the target project's **pom.xml**:
 
 ```xml
