@@ -189,9 +189,18 @@ Missing features can be added by writing [extensions](https://docs.bazel.build/v
 
 &nbsp;
 
-## Goals of the Bazelize Maven Plugin
+## Bazelize Maven Plugin
 
-The **Bazelize Maven Plugin** aims to generate all of the required **WORKSPACE** and **BUILD** scripts by processing each **pom.xml** configuration file with four successive [goals](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html). A further four goals are added for convenience.
+The **Bazelize Maven Plugin** aims to generate all of the required **WORKSPACE** and **BUILD** scripts by processing all or only the root **pom.xml** configuration files with four successive [goals](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html). A further four goals are added for convenience.
+
+```
+$ mvn clean install
+# for example:
+$ cd ../project-to-migrate
+$ mvn kupusoglu.orhan:bazelize-maven-plugin:GOAL -Dproperty1=value1 -Dproperty2=value2
+```
+
+The first four goals are expected to be called in succession. A single goal is a too big code with no granularity for each step, and calling other goals with **@Execute** [annotation](https://maven.apache.org/plugin-tools/maven-plugin-plugin/examples/using-annotations.html) works only just once.
 
 | GOAL          | ORDER | DESCRIPTION                              |
 | :------------ | ----- | ---------------------------------------- |
@@ -204,62 +213,11 @@ The **Bazelize Maven Plugin** aims to generate all of the required **WORKSPACE**
 | **clean**     | -     | Cleans all temporary files. With **-Dexpunge** cleans **WORKSPACE** and **BUILD** files, too. |
 | **help**      | -     | Displays help.                           |
 
-The first four goals are expected to be called in succession. A single goal is a too big code with no granularity for each step, and calling other goals with **@Execute** [annotation](https://maven.apache.org/plugin-tools/maven-plugin-plugin/examples/using-annotations.html) works only just once.
-
 &nbsp;
 
-## Maven Lifecycle
+## Maven Plugin Prefix Resolution
 
-The [Maven lifecycle extension](https://maven.apache.org/examples/maven-3-lifecycle-extensions.html) uses *sessions*, but found to be of limited use. Still it can be seen in action by declaring the plugin in the target project's **pom.xml**:
-
-```xml
-<project>
-...
-    <build>
-        <extensions>
-            <extension>
-                <groupId>kupusoglu.orhan</groupId>
-                <artifactId>bazelize-maven-plugin</artifactId>
-                <version>0.2.1</version>
-            </extension>
-        </extensions>
-    </build>
-...
-</project>
-```
-
-With this addition, calling the first goal and the third goal is enough:
-
-```
-$ mvn kupusoglu.orhan:bazelize-maven-plugin:module
-$ mvn kupusoglu.orhan:bazelize-maven-plugin:build
-```
-
-&nbsp;
-
-## Sample Migration
-
-After installing the **Maven-Bazelize** plugin, a sample project is needed.
-
-```
-$ mvn clean install
-```
-
-With the [Maven Archetype Plugin](https://maven.apache.org/archetype/maven-archetype-plugin/index.html) Maven can generate a [sample project](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html), which just prints, not surprisingly, *Hello World*.
-
-```
-$ cd ..
-$ mvn archetype:generate -DgroupId=com.mycompany.app \
-                         -DartifactId=my-app \
-                         -DarchetypeArtifactId=maven-archetype-quickstart \
-                         -DinteractiveMode=false
-$ cd my-app
-$ mvn package
-$ java -cp target/my-app-1.0-SNAPSHOT.jar com.mycompany.app.App
-Hello World!
-```
-
-Now the four goals must be called like this:
+The four goals must be called like this:
 
 ```
 $ mvn kupusoglu.orhan:bazelize-maven-plugin:module
@@ -289,9 +247,67 @@ $ mvn bazelize:build
 $ mvn bazelize:workspace
 ```
 
+&nbsp;
+
+## Maven Lifecycle
+
+The [Maven lifecycle extension](https://maven.apache.org/examples/maven-3-lifecycle-extensions.html) uses *sessions*, but found to be of limited use. Still it can be seen in action by declaring the plugin in the target project's **pom.xml**:
+
+```xml
+<project>
+...
+    <build>
+        <extensions>
+            <extension>
+                <groupId>kupusoglu.orhan</groupId>
+                <artifactId>bazelize-maven-plugin</artifactId>
+                <version>0.2.1</version>
+            </extension>
+        </extensions>
+    </build>
+...
+</project>
+```
+
+With this addition, calling the first goal and the third goal is enough:
+
+```
+$ mvn bazelize:module
+$ mvn bazelize:build
+```
+
+&nbsp;
+
+## Sample Migration
+
+After installing the **Maven-Bazelize** plugin, a sample project is needed.
+
+With the [Maven Archetype Plugin](https://maven.apache.org/archetype/maven-archetype-plugin/index.html) Maven can generate a [sample project](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html), which just prints, not surprisingly, *Hello World*.
+
+```
+$ cd ..
+$ mvn archetype:generate -DgroupId=com.mycompany.app \
+                         -DartifactId=my-app \
+                         -DarchetypeArtifactId=maven-archetype-quickstart \
+                         -DinteractiveMode=false
+$ cd my-app
+$ mvn package
+$ java -cp target/my-app-1.0-SNAPSHOT.jar com.mycompany.app.App
+Hello World!
+```
+
+The **Bazelize Maven Plugin** must be called to work on this Maven project:
+
+```
+$ mvn bazelize:module
+$ mvn bazelize:meta
+$ mvn bazelize:build
+$ mvn bazelize:workspace
+```
+
 Now a **WORKSPACE** and **BUILD** script is generated, so building with Bazel is now possible.
 
-With the other goals test and binary rules can be added, and clean removes the temporary JSON files:
+With the other goals test and binary rules can be added, and clean without **-Dexpunge** removes the temporary JSON files:
 
 ```
 $ mvn bazelize:help
@@ -352,9 +368,9 @@ Let's test with Bazel:
 $ bazel build ...
 Starting local Bazel server and connecting to it...
 .........
-INFO: Analysed 3 targets (18 packages loaded).
+INFO: Analysed 3 targets (17 packages loaded).
 INFO: Found 3 targets...
-INFO: Elapsed time: 7.404s, Critical Path: 1.68s
+INFO: Elapsed time: 9.332s, Critical Path: 2.62s
 INFO: 7 processes: 2 linux-sandbox, 2 local, 3 worker.
 INFO: Build completed successfully, 16 total actions
 
@@ -366,12 +382,12 @@ INFO: Found 1 test target...
 Target //:com_mycompany_app_AppTest up-to-date:
   bazel-bin/com_mycompany_app_AppTest.jar
   bazel-bin/com_mycompany_app_AppTest
-INFO: Elapsed time: 0.574s, Critical Path: 0.26s
+INFO: Elapsed time: 0.513s, Critical Path: 0.28s
 INFO: 1 process, linux-sandbox.
 INFO: Build completed successfully, 2 total actions
 //:com_mycompany_app_AppTest                                             PASSED in 0.2s
 
-INFO: Build completed successfully, 2 total actions
+Executed 1 out of 1 test: 1 test passes.
 
 $ bazel run com_mycompany_app_App
 INFO: Analysed target //:com_mycompany_app_App (0 packages loaded).
@@ -379,10 +395,11 @@ INFO: Found 1 target...
 Target //:com_mycompany_app_App up-to-date:
   bazel-bin/com_mycompany_app_App.jar
   bazel-bin/com_mycompany_app_App
-INFO: Elapsed time: 0.264s, Critical Path: 0.01s
+INFO: Elapsed time: 0.272s, Critical Path: 0.00s
 INFO: 0 processes.
 INFO: Build completed successfully, 1 total action
-INFO: Build completed successfully, 1 total action
+
+INFO: Running command line: bazel-bin/com_mycompany_app_App
 Hello World!
 
 $ bazel build libcom_mycompany_app_my_app_1_0_SNAPSHOT-src.jar
@@ -390,7 +407,7 @@ INFO: Analysed target //:libcom_mycompany_app_my_app_1_0_SNAPSHOT-src.jar (0 pac
 INFO: Found 1 target...
 Target //:libcom_mycompany_app_my_app_1_0_SNAPSHOT-src.jar up-to-date:
   bazel-bin/libcom_mycompany_app_my_app_1_0_SNAPSHOT-src.jar
-INFO: Elapsed time: 0.252s, Critical Path: 0.07s
+INFO: Elapsed time: 0.309s, Critical Path: 0.06s
 INFO: 1 process, linux-sandbox.
 INFO: Build completed successfully, 3 total actions
 
@@ -399,7 +416,7 @@ INFO: Analysed target //:com_mycompany_app_App_deploy.jar (0 packages loaded).
 INFO: Found 1 target...
 Target //:com_mycompany_app_App_deploy.jar up-to-date:
   bazel-bin/com_mycompany_app_App_deploy.jar
-INFO: Elapsed time: 0.337s, Critical Path: 0.07s
+INFO: Elapsed time: 0.297s, Critical Path: 0.07s
 INFO: 1 process, linux-sandbox.
 INFO: Build completed successfully, 4 total actions
 
@@ -408,7 +425,7 @@ INFO: Analysed target //:com_mycompany_app_AppTest-src.jar (0 packages loaded).
 INFO: Found 1 target...
 Target //:com_mycompany_app_AppTest-src.jar up-to-date:
   bazel-bin/com_mycompany_app_AppTest-src.jar
-INFO: Elapsed time: 0.296s, Critical Path: 0.05s
+INFO: Elapsed time: 0.309s, Critical Path: 0.05s
 INFO: 1 process, linux-sandbox.
 INFO: Build completed successfully, 3 total actions
 
@@ -417,11 +434,12 @@ INFO: Analysed target //:com_mycompany_app_AppTest_deploy.jar (0 packages loaded
 INFO: Found 1 target...
 Target //:com_mycompany_app_AppTest_deploy.jar up-to-date:
   bazel-bin/com_mycompany_app_AppTest_deploy.jar
-INFO: Elapsed time: 0.254s, Critical Path: 0.07s
+INFO: Elapsed time: 0.306s, Critical Path: 0.06s
 INFO: 1 process, linux-sandbox.
 INFO: Build completed successfully, 3 total actions
 
 # after review
+$ bazel clean --expunge
 INFO: Starting clean (this may take a while). Consider using --async if the clean takes more than several minutes.
 ```
 Bazel can create a [JAR file](https://docs.bazel.build/versions/master/be/java.html#java_binary) containing the sources collected from the transitive closure of the target:
@@ -477,7 +495,7 @@ Unlike a [Hello World](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program
 The **module** goal can add or remove source file locations with the **whiteListPattern** and **blackListPattern** options respectively:
 
 ```
-$ mvn bazelize:module -DwhiteListPattern=src/ DblackListPattern=/test|/integration-test|/target
+$ mvn bazelize:module -DwhiteListPattern=src/ -DblackListPattern=/test|/integration-test|/target
 ```
 
 The **build** goal can eliminate unwanted dependencies with the **blackListPattern** option:
