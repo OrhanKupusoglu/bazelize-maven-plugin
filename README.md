@@ -189,9 +189,9 @@ Missing features can be added by writing [extensions](https://docs.bazel.build/v
 
 &nbsp;
 
-## Bazelize Maven Plugin
+## Goals of the Bazelize Maven Plugin
 
-The **Bazelize Maven Plugin** aims to generate all of the required **WORKSPACE** and **BUILD** scripts by processing all or only the root **pom.xml** configuration files with four successive [goals](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html). A further four goals are added for convenience.
+The **Bazelize Maven Plugin** aims to generate all of the required **WORKSPACE** and **BUILD** scripts by processing **pom.xml** configuration files with four successive [goals](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html). A further four goals are added for convenience.
 
 ```
 $ mvn clean install
