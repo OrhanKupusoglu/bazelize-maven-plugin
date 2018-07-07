@@ -537,8 +537,8 @@ public class Common {
         return template;
     }
 
-    // public because called by CommonTest
-    public static String readFromInputStream(InputStream inputStream) throws IOException {
+    // called by CommonTest
+    protected static String readFromInputStream(InputStream inputStream) throws IOException {
         StringBuilder resultStringBuilder = new StringBuilder();
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
