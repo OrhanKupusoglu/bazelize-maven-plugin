@@ -1,5 +1,6 @@
 package kupusoglu.orhan.bazelize_maven_plugin.model;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -88,7 +89,7 @@ public class CommonTest {
     public void testRemoveLastChars() throws Exception {
         final String subject = "F-104G 63-12733";
         final String expected = "F-104G";
-        final String actual = Common.removeLastChars(subject, 9);
+        final String actual = Common.removeLastChars(subject, subject.length() - expected.length());
 
         Assert.assertEquals("Remove last n chars - failure", expected, actual);
     }
@@ -146,6 +147,7 @@ public class CommonTest {
         final String[] fileNames = {"F-100D.txt",
                                     "F-102A.txt",
                                     "F-104S.txt"};
+        String prefix = StringUtils.getCommonPrefix(fileNames);
         int counter = 0;
 
         for (String fileName : fileNames) {
@@ -153,7 +155,7 @@ public class CommonTest {
             tmpFile.createNewFile();
         }
 
-        Common.deleteFilesByPrefixAndSuffix(null, PATH_DIR_TEST, "F-", "*");
+        Common.deleteFilesByPrefixAndSuffix(null, PATH_DIR_TEST, prefix, "*");
 
         for (String fileName : fileNames) {
             if (!Files.exists(Paths.get(PATH_DIR_TEST.toString(), fileName))) {
