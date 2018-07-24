@@ -118,7 +118,7 @@ public class CreateBinary extends SimpleFileVisitor<Path> {
 
     public void done() {
         log.info("completed\n\tmatched: " + numBuildMatches
-                                             + " BUILD files");
+                                          + " BUILD files");
     }
 
     @Override

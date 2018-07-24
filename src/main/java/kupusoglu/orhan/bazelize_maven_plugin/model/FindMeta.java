@@ -126,7 +126,7 @@ public class FindMeta extends SimpleFileVisitor<Path> {
 
     public void done() {
         log.info("completed\n\tmatched: " + numMetaMatches
-                                             + " meta files matched");
+                                          + " meta files matched");
     }
 
     @Override
