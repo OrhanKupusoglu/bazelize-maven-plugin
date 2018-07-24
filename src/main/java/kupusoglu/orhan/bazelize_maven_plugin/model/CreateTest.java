@@ -125,7 +125,7 @@ public class CreateTest extends SimpleFileVisitor<Path> {
 
     public void done() {
         log.info("completed\n\tmatched: " + numJavaTestMatches
-                                             + " Java Test files");
+                                          + " Java Test files");
     }
 
     @Override
