@@ -432,7 +432,7 @@ public class Common {
                 res = RES_CLASS;
             } else {
                 try (
-                        Stream<Path> stream = java.nio.file.Files.walk(Paths.get(dir));
+                    Stream<Path> stream = java.nio.file.Files.walk(Paths.get(dir));
                 ) {
                     StringBuilder sb = new StringBuilder();
                     List<File> files = stream.filter(java.nio.file.Files::isRegularFile)
