@@ -477,6 +477,9 @@ $ cat << 'EOF' > bazelize.sh
 MAIN_CLASS=com.mycompany.app.App
 MAVEN_PLUGIN=kupusoglu.orhan:bazelize-maven-plugin
 
+bazel clean --expunge
+mvn ${MAVEN_PLUGIN}:clean -Dexpunge
+
 mvn ${MAVEN_PLUGIN}:module
 mvn ${MAVEN_PLUGIN}:meta
 mvn ${MAVEN_PLUGIN}:build
@@ -495,8 +498,6 @@ printf "\n"
 printf "== migration completed\n"
 printf "%0.s=" {1..80}
 printf "\n\n"
-
-bazel clean --expunge
 
 bazel build ... --strict_java_deps=off --profile=bazelize.out
 
