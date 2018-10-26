@@ -476,26 +476,34 @@ $ cat << 'EOF' > bazelize.sh
 
 MAIN_CLASS=com.mycompany.app.App
 MAVEN_PLUGIN=kupusoglu.orhan:bazelize-maven-plugin
+MIGRATE=$1
 
 bazel clean --expunge
-mvn ${MAVEN_PLUGIN}:clean -Dexpunge
 
-mvn ${MAVEN_PLUGIN}:module
-mvn ${MAVEN_PLUGIN}:meta
-mvn ${MAVEN_PLUGIN}:build
-mvn ${MAVEN_PLUGIN}:workspace
-mvn ${MAVEN_PLUGIN}:clean
-mvn ${MAVEN_PLUGIN}:test
-
-if [[ ! -z $MAIN_CLASS ]]
+if [[ $MIGRATE == "-g" ]]
 then
-    mvn ${MAVEN_PLUGIN}:binary -DmainClass=${MAIN_CLASS}
+    mvn ${MAVEN_PLUGIN}:clean -Dexpunge
+    mvn ${MAVEN_PLUGIN}:module
+    mvn ${MAVEN_PLUGIN}:meta
+    mvn ${MAVEN_PLUGIN}:build
+    mvn ${MAVEN_PLUGIN}:workspace
+    mvn ${MAVEN_PLUGIN}:clean
+    mvn ${MAVEN_PLUGIN}:test
+
+    if [[ ! -z $MAIN_CLASS ]]
+    then
+        mvn ${MAVEN_PLUGIN}:binary -DmainClass=${MAIN_CLASS}
+    fi
+
+    msg="migration completed"
+else
+    msg="bazel is ready"
 fi
 
 printf "\n"
 printf "%0.s=" {1..80}
 printf "\n"
-printf "== migration completed\n"
+printf "== ${msg}\n"
 printf "%0.s=" {1..80}
 printf "\n\n"
 
@@ -513,6 +521,11 @@ fi
 EOF
 
 $ chmod +x bazelize.sh
+
+# to generate the Bazel scripts and build & run with Bazel
+$ ./bazelize.sh -g
+
+# to only build & run with Bazel
 $ ./bazelize.sh
 ```
 
