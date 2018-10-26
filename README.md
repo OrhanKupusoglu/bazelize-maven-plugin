@@ -468,7 +468,9 @@ $ bazel analyze-profile --html bazelize.out
 
 ### Script
 
-Using [heredoc](https://en.wikipedia.org/wiki/Here_document) a simple shell script to call the goals can easily be prepared at target project's root:
+Using [heredoc](https://en.wikipedia.org/wiki/Here_document) a simple shell script to call the goals can easily be prepared at target project's root.
+
+For an example, please refer to the [Quicksort](https://github.com/OrhanKupusoglu/quicksort-duplicates) repository.
 
 ```
 $ cat << 'EOF' > bazelize.sh
