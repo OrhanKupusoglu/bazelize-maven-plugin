@@ -533,6 +533,69 @@ $ ./bazelize.sh
 
 &nbsp;
 
+## Parameters
+
+Parameters for each goal as called by the script above:
+
+### goal: clean
+| Parameter | Default Value | Description                                                    |
+| :-------- | ------------- | -------------------------------------------------------------- |
+| expunge   | false         | delete all generated files including BUILD and WORKSPACE files |
+
+### goal: module
+| Parameter        | Default Value                               | Description                                                        |
+| :--------------- | ------------------------------------------- | ------------------------------------------------------------------ |
+| rootDir          | "."                                         | root dir of the current Maven project - to be used by LifeCycle    |
+| backup           | false                                       | if true back  up the BUILD files - to be used by LifeCycle         |
+| suffix           | ""                                          | if empty set current timestamp as suffix - to be used by LifeCycle |
+| whiteListPattern | "src/"                                      | pattern for directories to include                                 |
+| blackListPattern | "/test&#124;/integration-test&#124;/target" | pattern for directories to exclude                                 |
+
+### goal: meta
+| Parameter        | Default Value        | Description                                      |
+| :--------------- | -------------------- | ------------------------------------------------ |
+| backup           | false                | if true back up the BUILD files                  |
+| suffix           | ""                   | if empty set current timestamp as suffix         |
+
+### goal: build
+| Parameter        | Default Value        | Description                                      |
+| :--------------- | -------------------- | ------------------------------------------------ |
+| settingsFile     | "../settings.xml"    | path of the settings file relative to local repo |
+| rootDir          | "."                  | root dir of the current Maven project            |
+| backup           | false                | if true back up the BUILD files                  |
+| suffix           | ""                   | if empty set current timestamp as suffix         |
+| blackListPattern | "^jdk_tools"         | add dependency to the black list to be ignored   |
+| defaultServer    | "central"            | default remote repository                        |
+| addScope         | true                 | set scope of the Maven dependency                |
+| addHash          | false                | add hash of the Maven dependency                 |
+| addServer        | false                | add remote server of the Maven dependency        |
+| resMain          | "src/main/resources" | path of the resource files                       |
+
+### goal: workspace
+| Parameter     | Default Value  | Description                              |
+| :------------ | -------------- | ---------------------------------------- |
+| backup        | false          | if true back up the WORKSPACE file       |
+| suffix        | ""             | if empty set current timestamp as suffix |
+| workspaceName | ""             | if empty use "WORKSPACE"                 |
+
+### goal: test
+| Parameter | Default Value        | Description                              |
+| :---------| -------------------- | ---------------------------------------- |
+| backup    | false                | if true back  up the BUILD files         |
+| suffix    | ""                   | if empty set current timestamp as suffix |
+| srcTest   | "src/test/java"      | path of the test source files            |
+| resTest   | "src/test/resources" | path of the test resource files          |
+
+### goal: binary
+| Parameter     | Default Value  | Description                              |
+| :------------ | -------------- | ---------------------------------------- |
+| backup        | false          | if true back up the BUILD file           |
+| suffix        | ""             | if empty set current timestamp as suffix |
+| binName       | ""             | if empty use mainClass as rule's name    |
+| mainClass     | ""             | mandatory                                |
+
+&nbsp;
+
 ## Next Steps
 
 Unlike a [Hello World](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) application, a large Java Maven project like [ONOS SDN Controller](https://onosproject.org/) will require some tweaks.
