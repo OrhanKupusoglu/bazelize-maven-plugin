@@ -34,7 +34,7 @@ public class GoalWorkspace extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
 
-    @Parameter(property = "backup", defaultValue = "true")
+    @Parameter(property = "backup", defaultValue = "false")
     private Boolean backup;
 
     @Parameter(property = "suffix", defaultValue = "")

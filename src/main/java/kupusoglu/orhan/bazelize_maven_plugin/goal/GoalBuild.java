@@ -82,7 +82,7 @@ public class GoalBuild extends AbstractMojo {
     @Parameter(property = "addHash", defaultValue = "false")
     private Boolean addHash;
 
-    @Parameter(property = "addServer", defaultValue = "true")
+    @Parameter(property = "addServer", defaultValue = "false")
     private Boolean addServer;
 
     @Parameter(property = "resMain", defaultValue = "src/main/resources")

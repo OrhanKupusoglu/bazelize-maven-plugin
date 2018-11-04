@@ -61,6 +61,9 @@ public class GoalModule extends AbstractMojo {
     @Parameter(property = "backup", defaultValue = "false")
     private Boolean backup;
 
+    @Parameter(property = "suffix", defaultValue = "")
+    private String suffix;
+
     @Parameter(property = "whiteListPattern", defaultValue = "src/")
     private String whiteListPattern;
 
@@ -72,6 +75,7 @@ public class GoalModule extends AbstractMojo {
         // for LifeCycle.afterSessionEnd()
         project.setContextValue("rootDir", rootDir);
         project.setContextValue("backup", backup);
+        project.setContextValue("suffix", suffix);
         project.setContextValue("log", getLog());
 
         Path root = Paths.get(rootDir).normalize().toAbsolutePath();
