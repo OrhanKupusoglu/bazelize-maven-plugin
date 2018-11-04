@@ -538,147 +538,61 @@ $ ./bazelize.sh
 Parameters for each goal as called by the script above:
 
 ### goal: clean
-
-<table width="100%">
-<tr>
-    <th>Parameter</th><th>Default Value</th><th>Description</th>
-</tr>
-<tr>
-    <td>expunge</td><td>false</td><td>delete all generated files including BUILD and WORKSPACE files</td>
-</tr>
-</table>
+| Parameter | Default Value | Description                                                    |
+| :-------- | ------------- | -------------------------------------------------------------- |
+| expunge   | false         | delete all generated files including BUILD and WORKSPACE files |
 
 ### goal: module
-
-<table width="100%">
-<tr>
-    <th>Parameter</th><th>Default Value</th><th>Description</th>
-</tr>
-<tr>
-    <td>rootDir</td><td>"."</td><td>root dir of the current Maven project - to be used by LifeCycle</td>
-</tr>
-<tr>
-    <td>backup</td><td>false</td><td>if true back  up the BUILD files - to be used by LifeCycle</td>
-</tr>
-<tr>
-    <td>suffix</td><td>""</td><td>if empty set current timestamp as suffix - to be used by LifeCycle</td>
-</tr>
-<tr>
-    <td>whiteListPattern</td><td>"src/"</td><td>pattern for directories to include</td>
-</tr>
-<tr>
-    <td>blackListPattern</td><td>"/test&#124;/integration-test&#124;/target"</td><td>pattern for directories to exclude</td>
-</tr>
-</table>
+| Parameter        | Default Value                               | Description                                                        |
+| :--------------- | ------------------------------------------- | ------------------------------------------------------------------ |
+| rootDir          | "."                                         | root dir of the current Maven project - to be used by LifeCycle    |
+| backup           | false                                       | if true back  up the BUILD files - to be used by LifeCycle         |
+| suffix           | ""                                          | if empty set current timestamp as suffix - to be used by LifeCycle |
+| whiteListPattern | "src/"                                      | pattern for directories to include                                 |
+| blackListPattern | "/test&#124;/integration-test&#124;/target" | pattern for directories to exclude                                 |
 
 ### goal: meta
-
-<table width="100%">
-<tr>
-    <th>Parameter</th><th>Default Value</th><th>Description</th>
-</tr>
-<tr>
-    <td>backup</td><td>false</td><td>if true back up the BUILD files</td>
-</tr>
-<tr>
-    <td>suffix</td><td>""</td><td>if empty set current timestamp as suffix</td>
-</tr>
-</table>
+| Parameter        | Default Value        | Description                                      |
+| :--------------- | -------------------- | ------------------------------------------------ |
+| backup           | false                | if true back up the BUILD files                  |
+| suffix           | ""                   | if empty set current timestamp as suffix         |
 
 ### goal: build
-
-<table width="100%">
-<tr>
-    <th>Parameter</th><th>Default Value</th><th>Description</th>
-</tr>
-<tr>
-    <td>settingsFile</td><td>"../settings.xml"</td><td>path of the settings file relative to local repo</td>
-</tr>
-<tr>
-    <td>rootDir</td><td>"."</td><td>root dir of the current Maven project</td>
-</tr>
-<tr>
-    <td>backup</td><td>false</td><td>if true back up the BUILD files</td>
-</tr>
-<tr>
-    <td>suffix</td><td>""</td><td>if empty set current timestamp as suffix</td>
-</tr>
-<tr>
-    <td>blackListPattern</td><td>"^jdk_tools"</td><td>add dependency to the black list to be ignored</td>
-</tr>
-<tr>
-    <td>defaultServer</td><td>"central"</td><td>default remote repository</td>
-</tr>
-<tr>
-    <td>addScope</td><td>true</td><td>set scope of the Maven dependency</td>
-</tr>
-<tr>
-    <td>addHash</td><td>false</td><td>add hash of the Maven dependency</td>
-</tr>
-<tr>
-    <td>addServer</td><td>false</td><td>add remote server of the Maven dependency</td>
-</tr>
-<tr>
-    <td>resMain</td><td>"src/main/resources"</td><td>path of the resource files</td>
-</tr>
-</table>
+| Parameter        | Default Value        | Description                                      |
+| :--------------- | -------------------- | ------------------------------------------------ |
+| settingsFile     | "../settings.xml"    | path of the settings file relative to local repo |
+| rootDir          | "."                  | root dir of the current Maven project            |
+| backup           | false                | if true back up the BUILD files                  |
+| suffix           | ""                   | if empty set current timestamp as suffix         |
+| blackListPattern | "^jdk_tools"         | add dependency to the black list to be ignored   |
+| defaultServer    | "central"            | default remote repository                        |
+| addScope         | true                 | set scope of the Maven dependency                |
+| addHash          | false                | add hash of the Maven dependency                 |
+| addServer        | false                | add remote server of the Maven dependency        |
+| resMain          | "src/main/resources" | path of the resource files                       |
 
 ### goal: workspace
-
-<table width="100%">
-<tr>
-    <th>Parameter</th><th>Default Value</th><th>Description</th>
-</tr>
-<tr>
-    <td>backup</td><td>false</td><td>if true back up the WORKSPACE file</td>
-</tr>
-<tr>
-    <td>suffix</td><td>""</td><td>if empty set current timestamp as suffix</td>
-</tr>
-<tr>
-    <td>workspaceName</td><td>""</td><td>if empty use "WORKSPACE"</td>
-</tr>
-</table>
+| Parameter     | Default Value  | Description                              |
+| :------------ | -------------- | ---------------------------------------- |
+| backup        | false          | if true back up the WORKSPACE file       |
+| suffix        | ""             | if empty set current timestamp as suffix |
+| workspaceName | ""             | if empty use "WORKSPACE"                 |
 
 ### goal: test
-
-<table width="100%">
-<tr>
-    <th>Parameter</th><th>Default Value</th><th>Description</th>
-</tr>
-<tr>
-    <td>backup</td><td>false</td><td>if true back  up the BUILD files</td>
-</tr>
-<tr>
-    <td>suffix</td><td>""</td><td>if empty set current timestamp as suffix</td>
-</tr>
-<tr>
-    <td>srcTest</td><td>"src/test/java"</td><td>path of the test source files</td>
-</tr>
-<tr>
-    <td>resTest</td><td>"src/test/resources"</td><td>path of the test resource files</td>
-</tr>
-</table>
+| Parameter | Default Value        | Description                              |
+| :---------| -------------------- | ---------------------------------------- |
+| backup    | false                | if true back  up the BUILD files         |
+| suffix    | ""                   | if empty set current timestamp as suffix |
+| srcTest   | "src/test/java"      | path of the test source files            |
+| resTest   | "src/test/resources" | path of the test resource files          |
 
 ### goal: binary
-
-<table width="100%">
-<tr>
-    <th>Parameter</th><th>Default Value</th><th>Description</th>
-</tr>
-<tr>
-    <td>backup</td><td>false</td><td>if true back up the BUILD file</td>
-</tr>
-<tr>
-    <td>suffix</td><td>""</td><td>if empty set current timestamp as suffix</td>
-</tr>
-<tr>
-    <td>binName</td><td>""</td><td>if empty use mainClass as rule's name</td>
-</tr>
-<tr>
-    <td>mainClass</td><td>""</td><td>mandatory</td>
-</tr>
-</table>
+| Parameter     | Default Value  | Description                              |
+| :------------ | -------------- | ---------------------------------------- |
+| backup        | false          | if true back up the BUILD file           |
+| suffix        | ""             | if empty set current timestamp as suffix |
+| binName       | ""             | if empty use mainClass as rule's name    |
+| mainClass     | ""             | mandatory                                |
 
 &nbsp;
 
