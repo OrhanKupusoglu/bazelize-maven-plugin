@@ -535,7 +535,14 @@ $ ./bazelize.sh
 
 ## Parameters
 
-Parameters for each goal as called by the script above:
+Parameters for each goal are supplied with **-Dname=value**, for example:
+
+```
+$ mvn kupusoglu.orhan:bazelize-maven-plugin:test -DsrcTest=src/test/java
+```
+
+Detailed plugin documentation can be generated with [Maven Site Plugin](https://maven.apache.org/plugins/maven-site-plugin/)'s **mvn site** goal, please check the HTML pages at **target/site/index.html**.
+For example: **Project Reports > Plugin Documentation > bazelize:test**
 
 ### goal: clean
 | Parameter | Default Value | Description                                                    |
@@ -639,10 +646,10 @@ $ cat bzl-build-dependency.json
 }
 ```
 
-| FILE                                    | DESCRIPTION                              |
-| :-------------------------------------- | ---------------------------------------- |
-| **bzl&dash;build-prepend&dash;txt**     | Prepend Bazel rules to a BUILD file      |
-| **bzl&dash;build&dash;append.txt**      | Append Bazel rules to a BUILD file       |
+| FILE                                    | DESCRIPTION                                             |
+| :-------------------------------------- | ------------------------------------------------------- |
+| **bzl&dash;build-prepend&dash;txt**     | Prepend Bazel rules to a BUILD file                     |
+| **bzl&dash;build&dash;append.txt**      | Append Bazel rules to a BUILD file                      |
 | **bzl&dash;build&dash;dependency.json** | Inject or remove dependencies/sources from a BUILD file |
-| **bzl-workspace-prepend.txt**           | Prepend Bazel rules to a WORKSPACE file  |
-| **bzl-workspace-append.txt**            | Append Bazel rules to a WORKSPACE file   |
+| **bzl-workspace-prepend.txt**           | Prepend Bazel rules to a WORKSPACE file                 |
+| **bzl-workspace-append.txt**            | Append Bazel rules to a WORKSPACE file                  |
