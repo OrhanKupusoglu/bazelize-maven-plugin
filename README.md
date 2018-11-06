@@ -610,15 +610,15 @@ For example: **Project Reports > Plugin Documentation > bazelize:test**
 
 Unlike a [Hello World](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) application, a large Java Maven project like [ONOS SDN Controller](https://onosproject.org/) will require some tweaks.
 
-### Options
+### Parameters
 
-The **module** goal can add or remove source file locations with the **whiteListPattern** and **blackListPattern** options respectively:
+The **module** goal can add or remove source file locations with the **whiteListPattern** and **blackListPattern** parameters respectively:
 
 ```
 $ mvn bazelize:module -DwhiteListPattern=src/ -DblackListPattern=/test|/integration-test|/target
 ```
 
-The **build** goal can eliminate unwanted dependencies with the **blackListPattern** option:
+The **build** goal can eliminate unwanted dependencies with the **blackListPattern** parameter:
 
 ```
 $ mvn bazelize:build -DblackListPattern="^jdk_tools|^com_sun_tools"
