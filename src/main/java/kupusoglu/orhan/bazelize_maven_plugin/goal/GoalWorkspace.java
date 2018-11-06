@@ -34,12 +34,24 @@ public class GoalWorkspace extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
 
+    /**
+     * if true back up the 'WORKSPACE' file
+     * @parameter
+     */
     @Parameter(property = "backup", defaultValue = "false")
     private Boolean backup;
 
+    /**
+     * if empty set current timestamp as suffix
+     * @parameter
+     */
     @Parameter(property = "suffix", defaultValue = "")
     private String suffix;
 
+    /**
+     * workspace name
+     * @parameter
+     */
     @Parameter(property = "workspaceName", defaultValue = "")
     private String workspaceName;
 

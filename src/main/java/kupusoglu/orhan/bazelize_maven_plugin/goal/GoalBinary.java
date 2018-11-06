@@ -32,15 +32,31 @@ public class GoalBinary extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
 
+    /**
+     * if true back up the 'BUILD' file
+     * @parameter
+     */
     @Parameter(property = "backup", defaultValue = "false")
     private Boolean backup;
 
+    /**
+     * if empty set current timestamp as suffix
+     * @parameter
+     */
     @Parameter(property = "suffix", defaultValue = "")
     private String suffix;
 
+    /**
+     * if empty use mainClass as rule's name
+     * @parameter
+     */
     @Parameter(property = "binName", defaultValue = "")
     private String binName;
 
+    /**
+     * mandatory
+     * @parameter
+     */
     @Parameter(property = "mainClass", defaultValue = "")
     private String mainClass;
 

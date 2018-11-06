@@ -58,33 +58,73 @@ public class GoalBuild extends AbstractMojo {
     @Parameter(defaultValue = "${settings}", required = true, readonly = true)
     private Settings settings;
 
+    /**
+     * path of the settings file relative to local repo
+     * @parameter
+     */
     @Parameter(property = "settingsFile", defaultValue = "../settings.xml")
     private String settingsFile;
 
+    /**
+     * root dir of the current Maven project
+     * @parameter
+     */
     @Parameter(property = "rootDir", defaultValue = ".")
     private String rootDir;
 
+    /**
+     * if true back up the 'BUILD' files
+     * @parameter
+     */
     @Parameter(property = "backup", defaultValue = "true")
     private Boolean backup;
 
+    /**
+     * if empty set current timestamp as suffix
+     * @parameter
+     */
     @Parameter(property = "suffix", defaultValue = "")
     private String suffix;
 
+    /**
+     *add dependency to the black list to be ignored
+     * @parameter
+     */
     @Parameter(property = "blackListPattern", defaultValue = "^jdk_tools")
     private String blackListPattern;
 
+    /**
+     * default remote repository
+     * @parameter
+     */
     @Parameter(property = "defaultServer", defaultValue = "central")
     private String defaultServer;
 
+    /**
+     * set scope of the Maven dependency
+     * @parameter
+     */
     @Parameter(property = "addScope", defaultValue = "true")
     private Boolean addScope;
 
+    /**
+     * add hash of the Maven dependency
+     * @parameter
+     */
     @Parameter(property = "addHash", defaultValue = "false")
     private Boolean addHash;
 
+    /**
+     * add remote server of the Maven dependency
+     * @parameter
+     */
     @Parameter(property = "addServer", defaultValue = "false")
     private Boolean addServer;
 
+    /**
+     * path of the resource files
+     * @parameter
+     */
     @Parameter(property = "resMain", defaultValue = "src/main/resources")
     private String resMain;
 
