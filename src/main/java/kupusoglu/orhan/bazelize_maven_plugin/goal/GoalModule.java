@@ -55,18 +55,38 @@ public class GoalModule extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
 
+    /**
+     * root dir of the current Maven project - to be used by LifeCycle
+     * @parameter
+     */
     @Parameter(property = "rootDir", defaultValue = ".")
     private String rootDir;
 
+    /**
+     * if true back up the 'BUILD' and 'tmp-bzl-meta.json' files - to be used by LifeCycle
+     * @parameter
+     */
     @Parameter(property = "backup", defaultValue = "false")
     private Boolean backup;
 
+    /**
+     * if empty set current timestamp as suffix - to be used by LifeCycle
+     * @parameter
+     */
     @Parameter(property = "suffix", defaultValue = "")
     private String suffix;
 
+    /**
+     * pattern for directories to include
+     * @parameter
+     */
     @Parameter(property = "whiteListPattern", defaultValue = "src/")
     private String whiteListPattern;
 
+    /**
+     * pattern for directories to exclude
+     * @parameter
+     */
     @Parameter(property = "blackListPattern", defaultValue = "/test|/integration-test|/target")
     private String blackListPattern;
 

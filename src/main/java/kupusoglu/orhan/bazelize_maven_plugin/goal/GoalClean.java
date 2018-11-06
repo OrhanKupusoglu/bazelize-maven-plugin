@@ -34,6 +34,10 @@ public class GoalClean extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
 
+    /**
+     * delete all generated files including BUILD and WORKSPACE files
+     * @parameter
+     */
     @Parameter(property = "expunge", defaultValue = "false")
     private Boolean expunge;
 

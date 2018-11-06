@@ -541,27 +541,29 @@ Parameters for each goal are supplied with **-Dname=value**, for example:
 $ mvn kupusoglu.orhan:bazelize-maven-plugin:test -DsrcTest=src/test/java
 ```
 
+The **backup** and **suffix** parameters are useful for debugging the plugin.
+
 Detailed plugin documentation can be generated with [Maven Site Plugin](https://maven.apache.org/plugins/maven-site-plugin/)'s **mvn site** goal, please check the HTML pages at **target/site/index.html**.
 For example: **Project Reports > Plugin Documentation > bazelize:test**
 
 ### goal: clean
-| Parameter | Default Value | Description                                                    |
-| :-------- | ------------- | -------------------------------------------------------------- |
-| expunge   | false         | delete all generated files including BUILD and WORKSPACE files |
+| Parameter | Default Value | Description                                                            |
+| :-------- | ------------- | ---------------------------------------------------------------------- |
+| expunge   | false         | delete all generated files including **BUILD** and **WORKSPACE** files |
 
 ### goal: module
-| Parameter        | Default Value                               | Description                                                        |
-| :--------------- | ------------------------------------------- | ------------------------------------------------------------------ |
-| rootDir          | "."                                         | root dir of the current Maven project - to be used by LifeCycle    |
-| backup           | false                                       | if true back  up the BUILD files - to be used by LifeCycle         |
-| suffix           | ""                                          | if empty set current timestamp as suffix - to be used by LifeCycle |
-| whiteListPattern | "src/"                                      | pattern for directories to include                                 |
-| blackListPattern | "/test&#124;/integration-test&#124;/target" | pattern for directories to exclude                                 |
+| Parameter        | Default Value                               | Description                                                                             |
+| :--------------- | ------------------------------------------- | --------------------------------------------------------------------------------------- |
+| rootDir          | "."                                         | root dir of the current Maven project - to be used by LifeCycle                         |
+| backup           | false                                       | if true back up the **BUILD** and **tmp-bzl-meta.json** files - to be used by LifeCycle |
+| suffix           | ""                                          | if empty set current timestamp as suffix - to be used by LifeCycle                      |
+| whiteListPattern | "src/"                                      | pattern for directories to include                                                      |
+| blackListPattern | "/test&#124;/integration-test&#124;/target" | pattern for directories to exclude                                                      |
 
 ### goal: meta
 | Parameter        | Default Value        | Description                                      |
 | :--------------- | -------------------- | ------------------------------------------------ |
-| backup           | false                | if true back up the BUILD files                  |
+| backup           | false                | if true back up the **tmp-bzl-meta.json** files  |
 | suffix           | ""                   | if empty set current timestamp as suffix         |
 
 ### goal: build
@@ -569,7 +571,7 @@ For example: **Project Reports > Plugin Documentation > bazelize:test**
 | :--------------- | -------------------- | ------------------------------------------------ |
 | settingsFile     | "../settings.xml"    | path of the settings file relative to local repo |
 | rootDir          | "."                  | root dir of the current Maven project            |
-| backup           | false                | if true back up the BUILD files                  |
+| backup           | false                | if true back up the **BUILD** files              |
 | suffix           | ""                   | if empty set current timestamp as suffix         |
 | blackListPattern | "^jdk_tools"         | add dependency to the black list to be ignored   |
 | defaultServer    | "central"            | default remote repository                        |
@@ -579,16 +581,16 @@ For example: **Project Reports > Plugin Documentation > bazelize:test**
 | resMain          | "src/main/resources" | path of the resource files                       |
 
 ### goal: workspace
-| Parameter     | Default Value  | Description                              |
-| :------------ | -------------- | ---------------------------------------- |
-| backup        | false          | if true back up the WORKSPACE file       |
-| suffix        | ""             | if empty set current timestamp as suffix |
-| workspaceName | ""             | if empty use "WORKSPACE"                 |
+| Parameter     | Default Value | Description                              |
+| :------------ | ------------- | ---------------------------------------- |
+| backup        | false         | if true back up the **WORKSPACE** file   |
+| suffix        | ""            | if empty set current timestamp as suffix |
+| workspaceName | ""            | if empty no workspace() line is added    |
 
 ### goal: test
 | Parameter | Default Value        | Description                              |
 | :---------| -------------------- | ---------------------------------------- |
-| backup    | false                | if true back  up the BUILD files         |
+| backup    | false                | if true back  up the **BUILD** files     |
 | suffix    | ""                   | if empty set current timestamp as suffix |
 | srcTest   | "src/test/java"      | path of the test source files            |
 | resTest   | "src/test/resources" | path of the test resource files          |
@@ -596,7 +598,7 @@ For example: **Project Reports > Plugin Documentation > bazelize:test**
 ### goal: binary
 | Parameter     | Default Value  | Description                              |
 | :------------ | -------------- | ---------------------------------------- |
-| backup        | false          | if true back up the BUILD file           |
+| backup        | false          | if true back up the **BUILD** file       |
 | suffix        | ""             | if empty set current timestamp as suffix |
 | binName       | ""             | if empty use mainClass as rule's name    |
 | mainClass     | ""             | mandatory                                |

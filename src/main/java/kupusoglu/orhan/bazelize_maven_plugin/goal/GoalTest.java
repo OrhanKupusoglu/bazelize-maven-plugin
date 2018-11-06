@@ -34,15 +34,31 @@ public class GoalTest extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
 
+    /**
+     * if true back up the 'BUILD' files
+     * @parameter
+     */
     @Parameter(property = "backup", defaultValue = "false")
     private Boolean backup;
 
+    /**
+     * if empty set current timestamp as suffix
+     * @parameter
+     */
     @Parameter(property = "suffix", defaultValue = "")
     private String suffix;
 
+    /**
+     * path of the test source files
+     * @parameter
+     */
     @Parameter(property = "srcTest", defaultValue = "src/test/java")
     private String srcTest;
 
+    /**
+     * path of the test resource files
+     * @parameter
+     */
     @Parameter(property = "resTest", defaultValue = "src/test/resources")
     private String resTest;
 
