@@ -344,8 +344,7 @@ public class Common {
     }
     // UNIT TEST END
 
-    // SYNCHRONIZED START
-    public static synchronized void setProjectData(String key, String value) {
+    public static void setProjectData(String key, String value) {
         if (MAP_PROJECT_DATA == null) {
             MAP_PROJECT_DATA = new HashMap<>();
         }
@@ -353,7 +352,7 @@ public class Common {
         MAP_PROJECT_DATA.put(key, value);
     }
 
-    public static synchronized String getProjectData(String key) {
+    public static String getProjectData(String key) {
         if (MAP_PROJECT_DATA == null) {
             return null;
         } else {
@@ -365,7 +364,7 @@ public class Common {
         }
     }
 
-    public static synchronized Dependency queryLibrary(String key) {
+    public static Dependency queryLibrary(String key) {
         if (MAP_META_DEPENDENCY == null) {
             try {
                 jsonToMap();
@@ -381,7 +380,7 @@ public class Common {
         }
     }
 
-    public static synchronized String getTemplateLibrary() {
+    public static String getTemplateLibrary() {
         if (!TEMPLATE_LIBRARY.isPresent()) {
             TEMPLATE_LIBRARY = readTemplate(INPUT_FILES.TEMPLATE_LIBRARY);
         }
@@ -389,7 +388,7 @@ public class Common {
         return TEMPLATE_LIBRARY.orElse("");
     }
 
-    public static synchronized String getTemplateBinary() {
+    public static String getTemplateBinary() {
         if (!TEMPLATE_BINARY.isPresent()) {
             TEMPLATE_BINARY = readTemplate(INPUT_FILES.TEMPLATE_BINARY);
         }
@@ -397,7 +396,7 @@ public class Common {
         return TEMPLATE_BINARY.orElse("");
     }
 
-    public static synchronized String getTemplateTest() {
+    public static String getTemplateTest() {
         if (!TEMPLATE_TEST.isPresent()) {
             TEMPLATE_TEST = readTemplate(INPUT_FILES.TEMPLATE_TEST);
         }
@@ -405,7 +404,7 @@ public class Common {
         return TEMPLATE_TEST.orElse("");
     }
 
-    public static synchronized String getTemplateServer() {
+    public static String getTemplateServer() {
         if (!TEMPLATE_SERVER.isPresent()) {
             TEMPLATE_SERVER = readTemplate(INPUT_FILES.TEMPLATE_SERVER);
         }
@@ -413,7 +412,7 @@ public class Common {
         return TEMPLATE_SERVER.orElse("");
     }
 
-    public static synchronized void setBlackListPattern(String blackListPattern) {
+    public static void setBlackListPattern(String blackListPattern) {
         if (blackListPattern == null || blackListPattern.isEmpty()) {
             PATTERN_BLACK_LIST = null;
         } else {
@@ -421,7 +420,7 @@ public class Common {
         }
     }
 
-    public static synchronized String getResources(String dir) {
+    public static String getResources(String dir) {
         Optional<String> res = Optional.empty();
 
         // De Morgan's laws
