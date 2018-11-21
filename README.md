@@ -285,7 +285,7 @@ $ mvn bazelize:module
 $ mvn bazelize:build
 ```
 
-Another benefit is sharing [context](http://maven.apache.org/ref/3.5.4/maven-core/apidocs/org/apache/maven/project/MavenProject.html#getContextValue-java.lang.String-) between succeeding executions. For example, with the following executions, backup suffixes for the temporaray module and meta JSON files, and for the BUILD and WORKSPAE files will be identical, respectively.
+Another benefit is sharing [context](http://maven.apache.org/ref/3.5.4/maven-core/apidocs/org/apache/maven/project/MavenProject.html#getContextValue-java.lang.String-) between succeeding executions. For example, with the following executions, backup suffixes for the temporaray module and meta JSON files, and for the BUILD and WORKSPACE files will be identical, respectively.
 
 ```
 $ mvn bazelize:module -Dbackup=true
