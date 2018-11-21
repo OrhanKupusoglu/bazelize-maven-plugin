@@ -78,7 +78,7 @@ $ mvn versions:display-plugin-updates
 $ mvn versions:set
 
 # Set immediately
-$ mvn versions:set -DnewVersion=0.3.2
+$ mvn versions:set -DnewVersion=0.3.3
 
 # Revert back
 $ mvn versions:revert
@@ -270,7 +270,7 @@ The [Maven lifecycle extension](https://maven.apache.org/examples/maven-3-lifecy
             <extension>
                 <groupId>kupusoglu.orhan</groupId>
                 <artifactId>bazelize-maven-plugin</artifactId>
-                <version>0.3.2</version>
+                <version>0.3.3</version>
             </extension>
         </extensions>
     </build>
@@ -602,12 +602,12 @@ For example: **Project Reports > Plugin Documentation > bazelize:test**
 | resTest   | "src/test/resources" | path of the test resource files          |
 
 ### goal: binary
-| Parameter     | Default Value  | Description                              |
-| :------------ | -------------- | ---------------------------------------- |
-| backup        | false          | if true back up the **BUILD** file       |
-| suffix        | ""             | if empty set current timestamp as suffix |
-| binName       | ""             | if empty use mainClass as rule's name    |
-| mainClass     | ""             | mandatory                                |
+| Parameter     | Default Value  | Description                                        |
+| :------------ | -------------- | -------------------------------------------------- |
+| backup        | false          | if true back up the **BUILD** file                 |
+| suffix        | ""             | if empty set current timestamp as suffix           |
+| binName       | ""             | if empty use name of the main class as rule's name |
+| mainClass     |                | name of the main class, **required**               |
 
 &nbsp;
 

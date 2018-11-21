@@ -47,17 +47,17 @@ public class GoalBinary extends AbstractMojo {
     private String suffix;
 
     /**
-     * if empty use mainClass as rule's name
+     * if empty use name of the main class as rule's name
      * @parameter
      */
     @Parameter(property = "binName", defaultValue = "")
     private String binName;
 
     /**
-     * mandatory
+     * name of the main class
      * @parameter
      */
-    @Parameter(property = "mainClass", defaultValue = "")
+    @Parameter(property = "mainClass", required = true)
     private String mainClass;
 
 
