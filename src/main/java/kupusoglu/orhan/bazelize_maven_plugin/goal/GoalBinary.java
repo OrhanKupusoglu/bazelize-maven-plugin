@@ -64,9 +64,10 @@ public class GoalBinary extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         if (project.isExecutionRoot()) {
             String finalSuffix = null;
+            String ctxSuffix = (String)project.getContextValue("suffix");
 
             if (backup) {
-                finalSuffix = Common.getBackupSuffix(suffix);
+                finalSuffix = Common.getBackupSuffix(suffix, ctxSuffix);
             }
 
             if (mainClass == null || mainClass.isEmpty()) {

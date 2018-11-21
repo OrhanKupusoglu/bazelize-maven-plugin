@@ -86,9 +86,10 @@ public class GoalModule extends AbstractMojo {
 
     public void execute() throws MojoExecutionException {
         String finalSuffix = null;
+        String ctxSuffix = (String)project.getContextValue("suffix");
 
         if (backup) {
-            finalSuffix = Common.getBackupSuffix(suffix);
+            finalSuffix = Common.getBackupSuffix(suffix, ctxSuffix);
         }
 
         // for LifeCycle.afterSessionEnd()
