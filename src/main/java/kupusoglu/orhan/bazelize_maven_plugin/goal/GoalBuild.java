@@ -80,7 +80,7 @@ public class GoalBuild extends AbstractMojo {
     private String suffix;
 
     /**
-     *add dependency to the black list to be ignored
+     * add dependency to the black list to be ignored
      * @parameter
      */
     @Parameter(property = "blackListPattern", defaultValue = "^jdk_tools")
