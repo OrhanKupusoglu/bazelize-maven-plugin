@@ -14,7 +14,7 @@ import java.nio.file.Paths;
  */
 public class SaveBinary {
     private Log log;
-    private String rootDir;
+    private String baseDir;
     private String mainClass;
     private String binName;
 
@@ -23,17 +23,17 @@ public class SaveBinary {
         super();
     }
 
-    public SaveBinary(Log log, String rootDir, String mainClass, String binName) {
+    public SaveBinary(Log log, String baseDir, String mainClass, String binName) {
         this();
 
         this.log = log;
-        this.rootDir = rootDir;
+        this.baseDir = baseDir;
         this.mainClass = mainClass;
         this.binName = binName;
     }
 
     public void execute() throws MojoExecutionException {
-        Path root = Paths.get(rootDir);
+        Path root = Paths.get(baseDir).normalize().toAbsolutePath();
         File fileBuild = new File(root + File.separator + Common.OUTPUT_FILES.BUILD);
 
         if (fileBuild.exists()) {

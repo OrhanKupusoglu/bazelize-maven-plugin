@@ -270,7 +270,7 @@ The [Maven lifecycle extension](https://maven.apache.org/examples/maven-3-lifecy
             <extension>
                 <groupId>kupusoglu.orhan</groupId>
                 <artifactId>bazelize-maven-plugin</artifactId>
-                <version>0.2.1</version>
+                <version>0.3.1</version>
             </extension>
         </extensions>
     </build>
@@ -555,7 +555,6 @@ For example: **Project Reports > Plugin Documentation > bazelize:test**
 ### goal: module
 | Parameter        | Default Value                               | Description                                                                             |
 | :--------------- | ------------------------------------------- | --------------------------------------------------------------------------------------- |
-| rootDir          | "."                                         | root dir of the current Maven project - to be used by LifeCycle                         |
 | backup           | false                                       | if true back up the **BUILD** and **tmp-bzl-meta.json** files - to be used by LifeCycle |
 | suffix           | ""                                          | if empty set current timestamp as suffix - to be used by LifeCycle                      |
 | whiteListPattern | "src/"                                      | pattern for directories to include                                                      |
@@ -571,7 +570,6 @@ For example: **Project Reports > Plugin Documentation > bazelize:test**
 | Parameter        | Default Value        | Description                                      |
 | :--------------- | -------------------- | ------------------------------------------------ |
 | settingsFile     | "../settings.xml"    | path of the settings file relative to local repo |
-| rootDir          | "."                  | root dir of the current Maven project            |
 | backup           | false                | if true back up the **BUILD** files              |
 | suffix           | ""                   | if empty set current timestamp as suffix         |
 | blackListPattern | "^jdk_tools"         | add dependency to the black list to be ignored   |

@@ -14,7 +14,7 @@ import java.nio.file.Paths;
  */
 public class SaveTest {
     private Log log;
-    private String rootDir;
+    private String baseDir;
     private String srcTest;
     private String resTest;
 
@@ -23,17 +23,17 @@ public class SaveTest {
         super();
     }
 
-    public SaveTest(Log log, String rootDir, String srcTest, String resTest) {
+    public SaveTest(Log log, String baseDir, String srcTest, String resTest) {
         this();
 
         this.log = log;
-        this.rootDir = rootDir;
+        this.baseDir = baseDir;
         this.srcTest = srcTest;
         this.resTest = resTest;
     }
 
     public void execute() throws MojoExecutionException {
-        Path root = Paths.get(rootDir);
+        Path root = Paths.get(baseDir).normalize().toAbsolutePath();
         File fileBuild = new File(root + File.separator + Common.OUTPUT_FILES.BUILD);
 
         if (fileBuild.exists()) {

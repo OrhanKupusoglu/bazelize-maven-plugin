@@ -28,7 +28,7 @@ import java.nio.file.Paths;
  * Saves to an intermediate JSON file the current module's meta data:
  * <br>
  * <ul>
- * <li>rootDir</li>
+ * <li>baseDir</li>
  * <li>relDir</li>
  * <li>groupId</li>
  * <li>artifactId</li>
@@ -54,13 +54,6 @@ import java.nio.file.Paths;
 public class GoalModule extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
-
-    /**
-     * root dir of the current Maven project - to be used by LifeCycle
-     * @parameter
-     */
-    @Parameter(property = "rootDir", defaultValue = ".")
-    private String rootDir;
 
     /**
      * if true back up the 'BUILD' and 'tmp-bzl-meta.json' files - to be used by LifeCycle
@@ -92,17 +85,25 @@ public class GoalModule extends AbstractMojo {
 
 
     public void execute() throws MojoExecutionException {
+        String finalSuffix = null;
+
+        if (backup) {
+            finalSuffix = Common.getBackupSuffix(suffix);
+        }
+
         // for LifeCycle.afterSessionEnd()
-        project.setContextValue("rootDir", rootDir);
-        project.setContextValue("backup", backup);
-        project.setContextValue("suffix", suffix);
-        project.setContextValue("log", getLog());
+        if (project.isExecutionRoot()) {
+            project.setContextValue("rootDir", project.getBasedir().getAbsolutePath());
+            project.setContextValue("backup", backup);
+            project.setContextValue("suffix", finalSuffix);
+            project.setContextValue("log", getLog());
+        }
 
-        Path root = Paths.get(rootDir).normalize().toAbsolutePath();
-
+        Path rootDir = project.getExecutionProject().getBasedir().toPath();
         Path baseDir = project.getBasedir().toPath();
+
         String pathBase = baseDir + File.separator;
-        Path relative = root.relativize(baseDir);
+        Path relative = rootDir.relativize(baseDir);
 
         String libName = Common.sanitize(project.getGroupId()
                                          + Common.getSepSanitize()
@@ -163,7 +164,7 @@ public class GoalModule extends AbstractMojo {
 
         try {
             MavenMeta meta = new MavenMeta(getLog(),
-                                           root,
+                                           rootDir,
                                            relative,
                                            project.getGroupId(),
                                            project.getArtifactId(),
@@ -174,16 +175,20 @@ public class GoalModule extends AbstractMojo {
 
             getLog().info(meta.recordBazelSources());
 
-            File fileMeta = new File(meta.retrieveAbsDir().toString()
-                                     + File.separator
-                                     + Common.OUTPUT_FILES.JSON_MODULE);
+            File fileModule = new File(meta.retrieveAbsDir().toString()
+                                       + File.separator
+                                       + Common.OUTPUT_FILES.JSON_MODULE);
 
-            FileWriter metaWriter = new FileWriter(fileMeta);
+            if (finalSuffix != null) {
+                Common.renameFileIfExists(fileModule.getAbsolutePath(), finalSuffix);
+            }            
+            
+            FileWriter metaWriter = new FileWriter(fileModule);
             metaWriter.write(MavenMeta.getMetaData(meta));
             metaWriter.flush();
             metaWriter.close();
 
-            getLog().info("output:\n" + Common.getIndentOne() + fileMeta);
+            getLog().info("output:\n" + Common.getIndentOne() + fileModule);
         } catch (IOException e) {
             getLog().error(e.getMessage());
         }

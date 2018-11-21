@@ -66,13 +66,7 @@ public class GoalBinary extends AbstractMojo {
             String finalSuffix = null;
 
             if (backup) {
-                LocalDateTime localDateTime = LocalDateTime.now();
-
-                if (suffix == null || suffix.isEmpty()) {
-                    finalSuffix = Common.getFormattedTimestamp(localDateTime);
-                } else {
-                    finalSuffix = suffix;
-                }
+                finalSuffix = Common.getBackupSuffix(suffix);
             }
 
             if (mainClass == null || mainClass.isEmpty()) {

@@ -14,7 +14,7 @@ import java.nio.file.Paths;
  */
 public class SaveWorkspace {
     private Log log;
-    private String rootDir;
+    private String baseDir;
     private String workspaceName;
 
 
@@ -22,17 +22,16 @@ public class SaveWorkspace {
         super();
     }
 
-    public SaveWorkspace(Log log, String rootDir, String workspaceName) {
+    public SaveWorkspace(Log log, String baseDir, String workspaceName) {
         this();
 
         this.log = log;
-        this.rootDir = rootDir;
+        this.baseDir = baseDir;
         this.workspaceName = workspaceName;
     }
 
     public void execute() throws MojoExecutionException {
-        Path root = Paths.get(rootDir);
-
+        Path root = Paths.get(baseDir).normalize().toAbsolutePath();
         File fileWorkspace = new File(root + File.separator + Common.OUTPUT_FILES.WORKSPACE);
 
         if (fileWorkspace.exists()) {
