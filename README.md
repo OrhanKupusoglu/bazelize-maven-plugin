@@ -78,7 +78,7 @@ $ mvn versions:display-plugin-updates
 $ mvn versions:set
 
 # Set immediately
-$ mvn versions:set -DnewVersion=0.3.1
+$ mvn versions:set -DnewVersion=0.3.2
 
 # Revert back
 $ mvn versions:revert
@@ -270,7 +270,7 @@ The [Maven lifecycle extension](https://maven.apache.org/examples/maven-3-lifecy
             <extension>
                 <groupId>kupusoglu.orhan</groupId>
                 <artifactId>bazelize-maven-plugin</artifactId>
-                <version>0.3.1</version>
+                <version>0.3.2</version>
             </extension>
         </extensions>
     </build>
@@ -283,6 +283,13 @@ With this addition, calling the first goal and the third goal is enough:
 ```
 $ mvn bazelize:module
 $ mvn bazelize:build
+```
+
+Another benefit is sharing [context](http://maven.apache.org/ref/3.5.4/maven-core/apidocs/org/apache/maven/project/MavenProject.html#getContextValue-java.lang.String-) between succeeding executions. For example, with the following executions, backup suffixes for the temporaray module and meta JSON files, and for the BUILD and WORKSPAE files will be identical, respectively.
+
+```
+$ mvn bazelize:module -Dbackup=true
+$ mvn bazelize:build -Dbackup=true
 ```
 
 &nbsp;

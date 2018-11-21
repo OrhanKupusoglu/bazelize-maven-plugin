@@ -345,11 +345,14 @@ public class Common {
     // UNIT TEST END
 
 
-    public static String getBackupSuffix(String suffix) {
+    public static String getBackupSuffix(String suffix, String ctxSuffix) {
         LocalDateTime localDateTime = LocalDateTime.now();
         String finalSuffix;
 
-        if (suffix == null || suffix.isEmpty()) {
+        // de Morgan's Law: 'NOT (a OR b)' = '(NOT a) AND (NOT b)'
+        if (!(ctxSuffix == null || suffix.isEmpty())) {
+            finalSuffix = ctxSuffix;
+        } else if (suffix == null || suffix.isEmpty()) {
             finalSuffix = Common.getFormattedTimestamp(localDateTime);
         } else {
             finalSuffix = suffix;

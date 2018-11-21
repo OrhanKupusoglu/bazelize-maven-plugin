@@ -54,12 +54,8 @@ public class GoalMeta extends AbstractMojo {
             String finalSuffix = null;
             String ctxSuffix = (String)project.getContextValue("suffix");
 
-            if (ctxSuffix != null) {
-                suffix = ctxSuffix;
-            }
-
             if (backup) {
-                finalSuffix = Common.getBackupSuffix(suffix);
+                finalSuffix = Common.getBackupSuffix(suffix, ctxSuffix);
             }
 
             try {

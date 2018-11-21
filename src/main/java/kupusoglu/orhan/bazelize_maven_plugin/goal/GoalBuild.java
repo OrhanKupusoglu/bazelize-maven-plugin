@@ -136,9 +136,10 @@ public class GoalBuild extends AbstractMojo {
             project.setContextValue("log", getLog());
 
             String finalSuffix = null;
+            String ctxSuffix = (String)project.getContextValue("suffix");
 
             if (backup) {
-                finalSuffix = Common.getBackupSuffix(suffix);
+                finalSuffix = Common.getBackupSuffix(suffix, ctxSuffix);
             }
 
             // for BUILD files
