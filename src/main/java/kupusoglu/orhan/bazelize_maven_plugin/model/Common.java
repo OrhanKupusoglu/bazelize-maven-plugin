@@ -344,6 +344,20 @@ public class Common {
     }
     // UNIT TEST END
 
+
+    public static String getBackupSuffix(String suffix) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String finalSuffix;
+
+        if (suffix == null || suffix.isEmpty()) {
+            finalSuffix = Common.getFormattedTimestamp(localDateTime);
+        } else {
+            finalSuffix = suffix;
+        }
+
+        return finalSuffix;
+    }
+
     public static void setProjectData(String key, String value) {
         if (MAP_PROJECT_DATA == null) {
             MAP_PROJECT_DATA = new HashMap<>();
@@ -463,7 +477,6 @@ public class Common {
 
         return res.orElse("");
     }
-    // SYNCHRONIZED END
 
     private static void jsonToMap() throws IOException {
         String filenameMeta = OUTPUT_FILES.JSON_META.toString();
@@ -471,10 +484,10 @@ public class Common {
         InputStream inputMeta;
 
         try {
-            if (getProjectData("rootDir") == null) {
+            if (getProjectData("baseDir") == null) {
                 inputMeta = Common.class.getClassLoader().getResourceAsStream(filenameMeta);
             } else {
-                inputMeta = new FileInputStream(getProjectData("rootDir") + File.separator + filenameMeta);
+                inputMeta = new FileInputStream(getProjectData("baseDir") + File.separator + filenameMeta);
             }
 
             try {
@@ -564,43 +577,43 @@ public class Common {
         }
     }
 
-    public static void generateMetaFile(Log log, String rootDir, String suffix)
+    public static void generateMetaFile(Log log, String baseDir, String suffix)
         throws MojoExecutionException {
         if (suffix != null) {
-            renameFileIfExists(rootDir + File.separator + OUTPUT_FILES.JSON_META, suffix);
+            renameFileIfExists(baseDir + File.separator + OUTPUT_FILES.JSON_META, suffix);
         }
 
-        SaveMeta saveMeta = new SaveMeta(log, rootDir);
+        SaveMeta saveMeta = new SaveMeta(log, baseDir);
         saveMeta.execute();
     }
 
-    public static void generateWorkspace(Log log, String rootDir, String workspaceName, String suffix)
+    public static void generateWorkspace(Log log, String baseDir, String workspaceName, String suffix)
         throws MojoExecutionException {
         if (suffix != null) {
-            renameFileIfExists(rootDir + File.separator + OUTPUT_FILES.WORKSPACE, suffix);
+            renameFileIfExists(baseDir + File.separator + OUTPUT_FILES.WORKSPACE, suffix);
         }
 
-        SaveWorkspace saveWorkspace = new SaveWorkspace(log, rootDir, workspaceName);
+        SaveWorkspace saveWorkspace = new SaveWorkspace(log, baseDir, workspaceName);
         saveWorkspace.execute();
     }
 
-    public static void generateBinary(Log log, String rootDir, String mainClass, String binName, String suffix)
+    public static void generateBinary(Log log, String baseDir, String mainClass, String binName, String suffix)
         throws MojoExecutionException {
         if (suffix != null) {
-            copyFileIfExists(rootDir + File.separator + OUTPUT_FILES.BUILD, suffix);
+            copyFileIfExists(baseDir + File.separator + OUTPUT_FILES.BUILD, suffix);
         }
 
-        SaveBinary saveBinary = new SaveBinary(log, rootDir, mainClass, binName);
+        SaveBinary saveBinary = new SaveBinary(log, baseDir, mainClass, binName);
         saveBinary.execute();
     }
 
-    public static void generateTest(Log log, String rootDir, String srcTest, String resTest, String suffix)
+    public static void generateTest(Log log, String baseDir, String srcTest, String resTest, String suffix)
         throws MojoExecutionException {
         if (suffix != null) {
-            copyFileIfExists(rootDir + File.separator + OUTPUT_FILES.BUILD, suffix);
+            copyFileIfExists(baseDir + File.separator + OUTPUT_FILES.BUILD, suffix);
         }
 
-        SaveTest saveTest = new SaveTest(log, rootDir, srcTest, resTest);
+        SaveTest saveTest = new SaveTest(log, baseDir, srcTest, resTest);
         saveTest.execute();
     }
 

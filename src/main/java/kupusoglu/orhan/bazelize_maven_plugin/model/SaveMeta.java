@@ -14,22 +14,22 @@ import java.nio.file.Paths;
  */
 public class SaveMeta {
     private Log log;
-    private String rootDir;
+    private String baseDir;
 
 
     public SaveMeta() {
         super();
     }
 
-    public SaveMeta(Log log, String rootDir) {
+    public SaveMeta(Log log, String baseDir) {
         this();
 
         this.log = log;
-        this.rootDir = rootDir;
+        this.baseDir = baseDir;
     }
 
     public void execute() throws MojoExecutionException {
-        Path root = Paths.get(rootDir).normalize().toAbsolutePath();
+        Path root = Paths.get(baseDir).normalize().toAbsolutePath();
         File metaFile = new File(root + File.separator + Common.OUTPUT_FILES.JSON_META);
 
         try {

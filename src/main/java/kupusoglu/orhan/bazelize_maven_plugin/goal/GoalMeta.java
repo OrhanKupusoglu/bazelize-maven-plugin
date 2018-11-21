@@ -52,15 +52,14 @@ public class GoalMeta extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         if (project.isExecutionRoot()) {
             String finalSuffix = null;
+            String ctxSuffix = (String)project.getContextValue("suffix");
+
+            if (ctxSuffix != null) {
+                suffix = ctxSuffix;
+            }
 
             if (backup) {
-                LocalDateTime localDateTime = LocalDateTime.now();
-
-                if (suffix == null || suffix.isEmpty()) {
-                    finalSuffix = Common.getFormattedTimestamp(localDateTime);
-                } else {
-                    finalSuffix = suffix;
-                }
+                finalSuffix = Common.getBackupSuffix(suffix);
             }
 
             try {

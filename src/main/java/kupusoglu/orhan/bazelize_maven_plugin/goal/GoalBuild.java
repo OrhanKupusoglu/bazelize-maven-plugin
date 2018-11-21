@@ -66,13 +66,6 @@ public class GoalBuild extends AbstractMojo {
     private String settingsFile;
 
     /**
-     * root dir of the current Maven project
-     * @parameter
-     */
-    @Parameter(property = "rootDir", defaultValue = ".")
-    private String rootDir;
-
-    /**
      * if true back up the 'BUILD' files
      * @parameter
      */
@@ -138,17 +131,14 @@ public class GoalBuild extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         // for LifeCycle.afterSessionEnd()
         if (Common.getProjectData("suffix") == null) { //project.isExecutionRoot()) {
-            project.setContextValue("rootDir", rootDir);
+            project.setContextValue("rootDir", project.getBasedir().getAbsolutePath());
             project.setContextValue("backup", backup);
             project.setContextValue("log", getLog());
 
-            LocalDateTime localDateTime = LocalDateTime.now();
             String finalSuffix = null;
 
-            if (suffix == null || suffix.isEmpty()) {
-                finalSuffix = Common.getFormattedTimestamp(localDateTime);
-            } else {
-                finalSuffix = suffix;
+            if (backup) {
+                finalSuffix = Common.getBackupSuffix(suffix);
             }
 
             // for BUILD files
@@ -156,7 +146,7 @@ public class GoalBuild extends AbstractMojo {
             // for WORKSPACE file
             project.setContextValue("suffix", finalSuffix);
 
-            getLog().info("local datetime: " + localDateTime + " | suffix: " + finalSuffix);
+            getLog().info("suffix: " + finalSuffix);
         }
 
         SortedSet<String> removeDep = new TreeSet<>();
@@ -220,13 +210,12 @@ public class GoalBuild extends AbstractMojo {
                                          + Common.getSepSanitize()
                                          + project.getVersion());
 
-        if (rootDir.isEmpty()) {
-            getLog().info("reading from class resources: " + Common.OUTPUT_FILES.JSON_META);
-        } else {
-            Common.setProjectData("rootDir", rootDir);
-            getLog().info("reading from root directory: "
-                          + Paths.get(rootDir, Common.OUTPUT_FILES.JSON_META.toString()).normalize().toAbsolutePath());
-        }
+
+        String baseDir = project.getBasedir().getAbsolutePath();
+        Common.setProjectData("baseDir", baseDir);
+
+        getLog().info("reading from root directory: "
+                      + Paths.get(baseDir, Common.OUTPUT_FILES.JSON_META.toString()).normalize().toAbsolutePath());
 
         Common.setBlackListPattern(finalBlackListPattern);
 
