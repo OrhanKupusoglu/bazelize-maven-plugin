@@ -661,3 +661,60 @@ $ cat bzl-build-dependency.json
 | **bzl&dash;build&dash;dependency.json** | Inject or remove dependencies/sources from a BUILD file |
 | **bzl-workspace-prepend.txt**           | Prepend Bazel rules to a WORKSPACE file                 |
 | **bzl-workspace-append.txt**            | Append Bazel rules to a WORKSPACE file                  |
+
+&nbsp;
+
+## Source Lines of Code
+
+[SLOC](https://en.wikipedia.org/wiki/Source_lines_of_code) of the project can be counted by the [Source Lines of Code Maven Plugin](https://github.com/OrhanKupusoglu/sloc-maven-plugin).
+
+```
+$ mvn kupusoglu.orhan:sloc-maven-plugin:sloc
+[INFO] Scanning for projects...
+[INFO] Inspecting build with total of 1 modules...
+[INFO] Installing Nexus Staging features:
+[INFO]   ... total of 1 executions of maven-deploy-plugin replaced with nexus-staging-maven-plugin
+[INFO]
+[INFO] ---------------< kupusoglu.orhan:bazelize-maven-plugin >----------------
+[INFO] Building Maven-to-Bazel Migration Plugin 0.3.3
+[INFO] ----------------------------[ maven-plugin ]----------------------------
+[INFO]
+[INFO] --- sloc-maven-plugin:0.1.4:sloc (default-cli) @ bazelize-maven-plugin ---
+[INFO] SLOC - directory: /home/orhanku/ME/DEV/OK/bazelize-maven-plugin/src
++------------------+----------------------+----------+----------+----------+----------+----------+----------+
+| Package Name     | File Name            | Type     | Blank    | JavaDoc  | Comment  | Code     | Total    |
++------------------+----------------------+----------+----------+----------+----------+----------+----------+
+| goal             | GoalBinary.java      | src      |       14 |       26 |        0 |       52 |       92 |
+| goal             | GoalBuild.java       | src      |       77 |       50 |       10 |      282 |      419 |
+| goal             | GoalClean.java       | src      |        9 |       16 |        0 |       35 |       60 |
+| goal             | GoalMeta.java        | src      |       11 |       20 |        0 |       39 |       70 |
+| goal             | GoalModule.java      | src      |       33 |       42 |        1 |      121 |      197 |
+| goal             | GoalTest.java        | src      |       13 |       28 |        0 |       48 |       89 |
+| goal             | GoalWorkspace.java   | src      |       12 |       24 |        0 |       41 |       77 |
+| goal             | LifeCycle.java       | src      |       26 |        5 |        2 |      106 |      139 |
++------------------+----------------------+----------+----------+----------+----------+----------+----------+
+| model            | Common.java          | src      |      107 |       12 |        9 |      508 |      636 |
+| model            | CommonTest.java      | test     |       40 |        0 |        0 |      150 |      190 |
+| model            | CreateBinary.java    | src      |       22 |        7 |        2 |      109 |      140 |
+| model            | CreateTest.java      | src      |       26 |        7 |        2 |      112 |      147 |
+| model            | CreateWorkspace.java | src      |       45 |        7 |        0 |      169 |      221 |
+| model            | FindMeta.java        | src      |       31 |        6 |        0 |      111 |      148 |
+| model            | MavenDependency.java | src      |       34 |       22 |        0 |      145 |      201 |
+| model            | MavenMeta.java       | src      |       41 |        3 |        0 |      158 |      202 |
+| model            | MavenServer.java     | src      |       23 |       17 |        0 |       71 |      111 |
+| model            | SaveBinary.java      | src      |       12 |        3 |        0 |       43 |       58 |
+| model            | SaveMeta.java        | src      |       12 |        3 |        0 |       34 |       49 |
+| model            | SaveTest.java        | src      |       12 |        3 |        0 |       46 |       61 |
+| model            | SaveWorkspace.java   | src      |       12 |        3 |        0 |       42 |       57 |
+| model            | SourceMeta.java      | src      |       28 |       14 |        0 |      140 |      182 |
++------------------+----------------------+----------+----------+----------+----------+----------+----------+
+| 2 package(s)     | 22 file(s)           | java     |      640 |      318 |       26 |     2562 |     3546 |
++------------------+----------------------+----------+----------+----------+----------+----------+----------+
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 0.992 s
+[INFO] Finished at: 2018-12-05T10:06:48+03:00
+[INFO] ------------------------------------------------------------------------
+```
