@@ -347,9 +347,9 @@ public class GoalBuild extends AbstractMojo {
                         if (currDep == null || currDep.getLabel().isEmpty()) {
                             if (!removeDep.contains("@" + dep.getName() + "//jar")) {
                                 build.append(Common.getIndentTwo());
-                                build.append("\"@");
-                                build.append(dep.getName());
-                                build.append("//jar\",");
+                                build.append("\"@maven//:");
+                                build.append(Common.sanitize(dep.getMavenDependencyString(false, false).replaceAll(":", "_")));
+                                build.append("\",");
                                 build.append("\n");
                             }
                         } else {

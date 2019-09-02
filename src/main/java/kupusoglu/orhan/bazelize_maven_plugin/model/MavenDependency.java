@@ -129,6 +129,22 @@ public class MavenDependency implements Comparable<MavenDependency> {
         return this.groupId + ":" + this.artifactId + ":" + this.version;
     }
 
+    public String getMavenDependencyString(boolean includeVersion, boolean includeQuotationMarks) {
+        StringBuilder sb = new StringBuilder();
+
+        if(includeQuotationMarks) sb.append('"');
+
+        sb.append(this.groupId)
+                .append(':')
+                .append(this.artifactId);
+
+        if(includeVersion) sb.append(":").append(this.version);
+
+        if(includeQuotationMarks) sb.append('"');
+
+        return sb.toString();
+    }
+
     public String outputAsBazelJar() {
         StringBuilder sb = new StringBuilder();
 
