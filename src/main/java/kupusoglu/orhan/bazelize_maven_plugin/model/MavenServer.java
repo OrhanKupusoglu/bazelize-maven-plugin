@@ -68,7 +68,7 @@ public class MavenServer implements Comparable<MavenServer> {
     public String outputAsBazelServer() {
         String contentServer = Common.getTemplateServer();
 
-        contentServer = contentServer.replaceFirst("#SERVER_NAME#", this.name)
+        contentServer = contentServer.replaceFirst("#SERVER_NAME#", Common.sanitize(this.name))
                                      .replaceFirst("#SERVER_URL#", this.url);
 
         if (this.settings_file == null || this.settings_file.isEmpty()) {
