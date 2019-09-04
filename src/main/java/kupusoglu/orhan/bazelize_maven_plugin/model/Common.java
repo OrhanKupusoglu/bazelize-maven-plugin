@@ -534,11 +534,14 @@ public class Common {
 
     private static Optional<String> readTemplate(INPUT_FILES input) {
         String filenameBuild = input.toString();
+        return readResourceFile(filenameBuild);
+    }
 
+    public static Optional<String> readResourceFile(String fileName) {
         Optional<String> template = Optional.empty();
 
         try {
-            InputStream inputStream = Common.class.getClassLoader().getResourceAsStream(filenameBuild);
+            InputStream inputStream = Common.class.getClassLoader().getResourceAsStream(fileName);
 
             try {
                 template = Optional.of(readFromInputStream(inputStream));
