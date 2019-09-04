@@ -154,19 +154,7 @@ public class CreateWorkspace extends SimpleFileVisitor<Path> {
         Iterator<Map.Entry<String, MavenDependency>> iteratorDependency = setDependency.iterator();
 
         // maven rules boilerplate
-        sbDependency.append("load(\"@bazel_tools//tools/build_defs/repo:http.bzl\", \"http_archive\")\n" +
-                "\n" +
-                "RULES_JVM_EXTERNAL_TAG = \"2.7\"\n" +
-                "RULES_JVM_EXTERNAL_SHA = \"f04b1466a00a2845106801e0c5cec96841f49ea4e7d1df88dc8e4bf31523df74\"\n" +
-                "\n" +
-                "http_archive(\n" +
-                "    name = \"rules_jvm_external\",\n" +
-                "    strip_prefix = \"rules_jvm_external-%s\" % RULES_JVM_EXTERNAL_TAG,\n" +
-                "    sha256 = RULES_JVM_EXTERNAL_SHA,\n" +
-                "    url = \"https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip\" % RULES_JVM_EXTERNAL_TAG,\n" +
-                ")\n" +
-                "\n" +
-                "load(\"@rules_jvm_external//:defs.bzl\", \"maven_install\")\n");
+        sbDependency.append(Common.readResourceFile("rules_jvm_external_boilerplate"));
 
         sbDependency.append("maven_install(\n" +
                 "    artifacts = [\n");
