@@ -9,10 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 
 /**
@@ -141,37 +138,44 @@ public class CreateWorkspace extends SimpleFileVisitor<Path> {
     }
 
     public void workspace() {
-        Set<Map.Entry<String, MavenServer>> setServer = mapServer.entrySet();
-        Iterator<Map.Entry<String, MavenServer>> iteratorServer = setServer.iterator();
-
-        while (iteratorServer.hasNext()) {
-            Map.Entry<String, MavenServer> me = iteratorServer.next();
-            MavenServer srv = me.getValue();
-            sbServer.append(srv.outputAsBazelServer());
-        }
-
         Set<Map.Entry<String, MavenDependency>> setDependency = mapDependency.entrySet();
         Iterator<Map.Entry<String, MavenDependency>> iteratorDependency = setDependency.iterator();
 
         // maven rules boilerplate
-        sbDependency.append(Common.readResourceFile("rules_jvm_external_boilerplate"));
+        Optional<String> template = Common.readResourceFile("rules_jvm_external_boilerplate");
+        if(!template.isPresent()) throw new IllegalStateException("Cannot find template: " + "rules_jvm_external_boilerplate");
+        sbDependency.append(template.get());
 
-        sbDependency.append("maven_install(\n" +
-                "    artifacts = [\n");
+        // fetch all maven dependencies/artifacts
+        sbDependency.append(
+                "maven_install(\n" +
+                Common.getIndentOne() +"artifacts = [\n"
+        );
+        // define artifacts
         while (iteratorDependency.hasNext()) {
             Map.Entry<String, MavenDependency> me = iteratorDependency.next();
             MavenDependency srv = me.getValue();
-            //sbDependency.append(srv.outputAsBazelJar());
-            sbDependency.append("        "); // formatting
-            sbDependency.append(srv.getMavenDependencyString(true, true));
-            sbDependency.append(',');
-            sbDependency.append('\n');
+
+            sbDependency.append(
+                    Common.getIndentTwo() + srv.getMavenDependencyString(true, true) + ",\n"
+            );
         }
-        sbDependency.append("    ],\n" +
-                "    repositories = [\n" +
-                "        \"https://repo1.maven.org/maven2\",\n" +
-                "    ],\n" +
-                ")\n");
+        // define repositories
+        sbDependency.append(
+                Common.getIndentOne() + "],\n" +
+                Common.getIndentOne() + "repositories = [\n"
+        );
+
+        for (MavenServer server : mapServer.values()) {
+            sbDependency.append(
+                    Common.getIndentTwo() + "\"" + server.getUrl() + "\",\n"
+            );
+        }
+
+        sbDependency.append(
+                Common.getIndentOne() + "],\n" +
+                ")\n"
+        );
 
         try {
             if (bzlWorkspaceName != null && !bzlWorkspaceName.isEmpty()) {
