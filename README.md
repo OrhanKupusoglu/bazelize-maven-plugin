@@ -585,6 +585,7 @@ For example: **Project Reports > Plugin Documentation > bazelize:test**
 | addHash          | false                | add hash of the Maven dependency                 |
 | addServer        | false                | add remote server of the Maven dependency        |
 | resMain          | "src/main/resources" | path of the resource files                       |
+| useMavenStructure| true                 | use `glob("src/main/java/**/*.java")` and `glob("src/main/resources/**/*")`  |
 
 ### goal: workspace
 | Parameter     | Default Value | Description                              |
